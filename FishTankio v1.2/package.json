@@ -1,0 +1,16 @@
+{
+  "name": "fishtank-io",
+  "version": "0.4.0",
+  "description": "FishTank.io v0.4 (FIX 4): multiplayer aquarium shooter starring antique deep-sea divers. 8:00 repeating matches, durable breakable tank you can climb out of, watery water, real sand.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": { "node": ">=18.11" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
