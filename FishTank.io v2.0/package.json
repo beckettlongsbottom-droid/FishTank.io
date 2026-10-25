@@ -1,0 +1,18 @@
+{
+  "name": "fishtank-io",
+  "version": "0.8.0",
+  "description": "FishTank.io v0.8 (FIX 8): three maps (bedroom tank, bathtub, kitchen fish bowl), Tag and King of the Castle modes, post-match map and mode voting, better hitboxes, locker preview that follows the cursor.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.11"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
