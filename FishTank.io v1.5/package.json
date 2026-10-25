@@ -1,0 +1,16 @@
+{
+  "name": "fishtank-io",
+  "version": "0.7.0",
+  "description": "FishTank.io v0.7 (FIX 7): multiplayer aquarium shooter starring antique deep-sea divers. Stronger shotgun with spread-sized crosshair, mother scene rework, one login per account, oxygen tanks, mouse sensitivity.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": { "node": ">=18.11" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
