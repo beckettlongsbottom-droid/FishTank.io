@@ -1,0 +1,16 @@
+{
+  "name": "fishtank-io",
+  "version": "0.5.0",
+  "description": "FishTank.io v0.5 (FIX 5): multiplayer aquarium shooter starring antique deep-sea divers. Beach soundtrack, knock-out-able kid with a very sad mother scene, shoot-through coral, spread-out jellyfish parkour, faster pistol.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": { "node": ">=18.11" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
