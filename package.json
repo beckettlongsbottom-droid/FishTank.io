@@ -1,0 +1,16 @@
+{
+  "name": "fishtank-io",
+  "version": "0.6.0",
+  "description": "FishTank.io v0.6 (FIX 6): multiplayer aquarium shooter starring antique deep-sea divers. Glass-tap thud, volume settings, bubble-burst deaths, kid KO freeze fix, buddyboy32 admin panel.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": { "node": ">=18.11" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
