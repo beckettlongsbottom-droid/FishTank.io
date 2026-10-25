@@ -1,0 +1,18 @@
+{
+  "name": "fishtank-io",
+  "version": "0.10.0",
+  "description": "FishTank.io v0.10 (FIX 10): new menu layout, Brass Wrench, special gun pad (squid / anglerfish longshot / super soaker), kitchen cat event, kill cam, emotes, FFA only on Bedroom and Kitchen.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.11"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
