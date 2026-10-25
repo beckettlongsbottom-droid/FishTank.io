@@ -1,0 +1,18 @@
+{
+  "name": "fishtank-io",
+  "version": "0.9.0",
+  "description": "FishTank.io v0.9 (FIX 9): sharper instrument-panel menus without emojis, iPad/phone touch controls, bathtub against the wall with a unique slipper tub, dad scene, roomier and cleaner kitchen bowl.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.11"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
