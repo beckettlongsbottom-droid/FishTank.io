@@ -9,7 +9,7 @@ const WEAPONS = {                                  // add new guns here; the cli
   pistol:   { name: 'Bubble Pistol',   dmg: 20, fall: 22, dmgMin: 8, pellets: 1, spread: 0.012, rate: 110,  mag: 14, reload: 1200, range: 60,  splash: 0,   boost: 2, crack: 1, color: 0x4fc3f7, len: 0.5 },
   puffer:   { name: 'Pufferfish SMG',  dmg: 7.5,  pellets: 1, spread: 0.034, rate: 95,   mag: 18, reload: 1900, range: 30,  splash: 0,   boost: 4, crack: .5, auto: true, color: 0x2fd3c4, len: 0.45 },
   shotgun:  { name: 'Clam Shotgun',    dmg: 14, pellets: 8, spread: 0.10,  rate: 1000, mag: 4,  reload: 2200, range: 18,  splash: 0,   boost: 3, crack: .7, color: 0xff9ecb, len: 0.55 },
-  squid:    { name: 'Squid Launcher',  dmg: 200, pellets: 1, spread: 0.004, rate: 700, mag: 1, reload: 2200, range: 60, splash: 4.5, splashMin: 80, splashMax: 125, autoReload: true, proj: 26, boost: 8, crack: 8, pad: true, color: 0xb39ddb, len: 0.7 },
+  squid:    { name: 'Squid Launcher',  dmg: 200, pellets: 1, spread: 0.004, rate: 700, mag: 1, reload: 2200, range: 60, splash: 6.5, splashMin: 80, splashMax: 125, autoReload: true, proj: 26, boost: 8, crack: 8, pad: true, color: 0xb39ddb, len: 0.7 },
   crab:     { name: 'Crabfish Burst Rifle', dmg: 13, pellets: 1, spread: 0.02, rate: 520, burst: 3, burstGap: 75, mag: 18, reload: 1900, range: 55, splash: 0, boost: 4, crack: .6, color: 0xff6b4a, len: 0.6 },   // quick three-round bursts, 13 damage each
   seahorse: { name: 'Seahorse Sniper', dmg: 80, pellets: 1, spread: 0,     rate: 1600, mag: 3,  reload: 2600, range: 110, splash: 0,   boost: 5, crack: 3, scope: 20, color: 0xffd23f, len: 0.9 },
   noodle:   { name: 'Pool Noodle',     dmg: 50, pellets: 1, spread: 0,     rate: 450,  mag: 99, reload: 0,    range: 3.8, splash: 0,   boost: 1.3, crack: 0, melee: true, color: 0x39d98a, len: 0.9 },   // flimsy green melee: 2 slaps pop a diver, dash cooldown is only 1 s
@@ -291,25 +291,21 @@ try { ACC = JSON.parse(fs.readFileSync(DB, 'utf8')); } catch {}
 setInterval(() => { if (!dirty) return; dirty = false; try { fs.mkdirSync(__dirname + '/data', { recursive: true }); fs.writeFileSync(DB, JSON.stringify(ACC)); } catch (e) { console.log('save failed', e.message); } }, 5000);
 const levelCost = L => Math.round(80 + 6 * Math.pow(L, 1.4));    // XP from level L to L+1: gets steadily harder (tune here)
 function levelOf(xp) { let L = 1, need = levelCost(1); while (L < 100 && xp >= need) { xp -= need; L++; need = levelCost(L); } return { level: L, into: L >= 100 ? 0 : xp, need: L >= 100 ? 0 : need }; }
-const COSMETICS = [                              // one unlock per milestone, least cool to coolest
-  { id: 'duck', name: 'Rubber Duck Buddy', slot: 'hat', lvl: 5 }, { id: 'wig', name: 'Seaweed Wig', slot: 'hat', lvl: 10 },
-  { id: 'clown', name: 'Clownfish Paint', slot: 'paint', lvl: 15 }, { id: 'pirate', name: 'Pirate Captain Hat', slot: 'hat', lvl: 25 },
-  { id: 'pearl', name: 'Pearl Bubble Trail', slot: 'trail', lvl: 35 }, { id: 'crab', name: 'Crab On Your Head', slot: 'hat', lvl: 50 },
-  { id: 'scales', name: 'Mermaid Scale Suit', slot: 'suit', lvl: 65 }, { id: 'rainbow', name: 'Rainbow Bubble Trail', slot: 'trail', lvl: 75 },
-  { id: 'narwhal', name: 'Narwhal Horn', slot: 'hat', lvl: 90 }, { id: 'golden', name: 'THE GOLDEN DIVER', slot: 'suit', lvl: 100 },
-  // Fix 24: detailed cosmetics. Hair, hats, faces and backs ride on jiggle-bone physics on the client
-  { id: 'mustache', name: 'Handlebar Mustache', slot: 'face', lvl: 7 }, { id: 'mullet', name: 'Rad Mullet', slot: 'hair', lvl: 9 },
-  { id: 'wizard', name: 'Deep Sea Wizard Hat', slot: 'hat', lvl: 12 }, { id: 'cape', name: 'Royal Cape', slot: 'back', lvl: 14 },
-  { id: 'googly', name: 'Googly Eyes', slot: 'face', lvl: 16 }, { id: 'ponytail', name: 'Swishy Ponytail', slot: 'hair', lvl: 18 },
-  { id: 'jelly', name: 'Jellyfish Hat', slot: 'hat', lvl: 20 }, { id: 'monocle', name: 'Fancy Monocle', slot: 'face', lvl: 22 },
-  { id: 'flag', name: 'Pirate Flag Pole', slot: 'back', lvl: 26 }, { id: 'mohawk', name: 'Neon Mohawk', slot: 'hair', lvl: 28 },
-  { id: 'shark', name: 'Shark Grin', slot: 'face', lvl: 30 }, { id: 'crown', name: 'Coral King Crown', slot: 'hat', lvl: 33 },
-  { id: 'fins', name: 'Fin Wings', slot: 'back', lvl: 38 }, { id: 'octo', name: 'Octopus Pal', slot: 'hat', lvl: 42 },
-  { id: 'afro', name: 'Big Bubble Afro', slot: 'hair', lvl: 45 }, { id: 'shell', name: 'Hermit Shell', slot: 'back', lvl: 48 },
-  { id: 'beard', name: 'Pirate Beard', slot: 'face', lvl: 52 }, { id: 'mermaid', name: 'Mermaid Locks', slot: 'hair', lvl: 58 },
-  { id: 'angler', name: 'Anglerfish Lure', slot: 'hat', lvl: 62 }, { id: 'jet', name: 'Bubble Jet Pack', slot: 'back', lvl: 70 },
-  { id: 'flame', name: 'Ghostfire Hair', slot: 'hair', lvl: 85 }
+const COSMETICS = [                              // fewer, nicer ones. lvl = unlocked by reaching that level; quest = unlocked by finishing that quest
+  { id: 'duck', name: 'Rubber Duck Buddy', slot: 'hat', lvl: 5 }, { id: 'mustache', name: 'Handlebar Mustache', slot: 'face', lvl: 8 },
+  { id: 'mullet', name: 'Rad Mullet', slot: 'hair', lvl: 10 }, { id: 'cape', name: 'Royal Cape', slot: 'back', lvl: 14 },
+  { id: 'wizard', name: 'Deep Sea Wizard Hat', slot: 'hat', lvl: 15 }, { id: 'clown', name: 'Clownfish Paint', slot: 'paint', lvl: 15 },
+  { id: 'googly', name: 'Googly Eyes', slot: 'face', lvl: 18 }, { id: 'pirate', name: 'Pirate Captain Hat', slot: 'hat', lvl: 25 },
+  { id: 'mohawk', name: 'Neon Mohawk', slot: 'hair', lvl: 30 }, { id: 'pearl', name: 'Pearl Bubble Trail', slot: 'trail', lvl: 35 },
+  { id: 'shark', name: 'Shark Grin', slot: 'face', lvl: 40 }, { id: 'scales', name: 'Mermaid Scale Suit', slot: 'suit', lvl: 65 },
+  { id: 'rainbow', name: 'Rainbow Bubble Trail', slot: 'trail', lvl: 75 }, { id: 'narwhal', name: 'Narwhal Horn', slot: 'hat', lvl: 90 },
+  { id: 'golden', name: 'THE GOLDEN DIVER', slot: 'suit', lvl: 100 },
+  { id: 'jelly', name: 'Jellyfish Hat', slot: 'hat', quest: 'm_head25' }, { id: 'mermaid', name: 'Mermaid Locks', slot: 'hair', quest: 'm_win5' },
+  { id: 'jet', name: 'Bubble Jet Pack', slot: 'back', quest: 'm_play240' }
 ];
+const COLORS = ['brass', 'green', 'blue', 'red'];     // preset diver colours, everybody has all four (brass is the default)
+const SLOTS = ['hat', 'paint', 'trail', 'suit', 'hair', 'face', 'back', 'color'];
+const unlocked = (a, c) => c.quest ? !!(a.qd && a.qd[c.quest]) : levelOf(a.xp).level >= (c.lvl || 0);
 
 // ----- achievements: counters saved on the account; each achievement unlocks when its counter reaches the goal, and pays a little XP -----
 const ACHS = [
@@ -357,6 +353,16 @@ const ACHS = [
   { id: 'harp_25', name: 'Reel Deal', desc: 'Harpoon 25 divers', stat: 'harp_hits', goal: 25, xp: 400 },
   { id: 'harp_100', name: 'Ahab', desc: 'Harpoon 100 divers', stat: 'harp_hits', goal: 100, xp: 1500 },
   { id: 'swing_50', name: 'Web Slinger', desc: 'Stick the harpoon in 50 walls, props or floors', stat: 'harps', goal: 50, xp: 500 },
+  { id: 'quest_1', name: 'Quest Taker', desc: 'Finish a quest', stat: 'quests', goal: 1, xp: 100 },
+  { id: 'quest_5', name: 'Errand Runner', desc: 'Finish 5 quests', stat: 'quests', goal: 5, xp: 300 },
+  { id: 'quest_15', name: 'Quest Master', desc: 'Finish 15 quests', stat: 'quests', goal: 15, xp: 1000 },
+  { id: 'daily_3', name: 'Daily Habit', desc: 'Finish 3 daily quests', stat: 'dailies', goal: 3, xp: 300 },
+  { id: 'daily_10', name: 'Regular Customer', desc: 'Finish 10 daily quests', stat: 'dailies', goal: 10, xp: 800 },
+  { id: 'daily_30', name: 'Dedicated Diver', desc: 'Finish 30 daily quests', stat: 'dailies', goal: 30, xp: 2500 },
+  { id: 'qa_champ', name: 'Crowned', desc: 'Finish the Champion quest', stat: 'q_m_win5', goal: 1, xp: 300 },
+  { id: 'qa_eye', name: 'Sharp Shooter', desc: 'Finish the Dead Eye quest', stat: 'q_m_head100', goal: 1, xp: 800 },
+  { id: 'qa_deep', name: 'Deep Sea Legend', desc: 'Finish the Deep Sea Resident quest', stat: 'q_m_play240', goal: 1, xp: 1000 },
+  { id: 'qa_terror', name: 'Feared Everywhere', desc: 'Finish the Terror of the Tank quest', stat: 'q_m_pop500', goal: 1, xp: 1500 },
   { id: 'lv_100', name: 'The Golden Diver', desc: 'Reach level 100', stat: 'level', goal: 100, xp: 1000 }
 ];
 function checkAch(a, ws) {
@@ -370,14 +376,62 @@ function checkAch(a, ws) {
 setInterval(() => { for (const p of players.values()) if (p.acct && !p.dead) stat(p, 'secs', 10); }, 10000);   // time played, for the hours-long achievements
 function stat(p, key, n = 1, max = false) {        // bump one counter (max = keep the best so far) on the player's account
   if (!p || !p.acct || !ACC[p.acct]) return; const a = ACC[p.acct]; a.st = a.st || {};
-  a.st[key] = max ? Math.max(a.st[key] || 0, n) : (a.st[key] || 0) + n; dirty = true; checkAch(a, p.ws);
+  a.st[key] = max ? Math.max(a.st[key] || 0, n) : (a.st[key] || 0) + n; dirty = true; qCheck(a, p.ws); checkAch(a, p.ws);
+}
+
+// ----- quests: three daily quests (same for everybody, new every UTC day) plus a long list of bigger ones. They count the same stats as achievements, from the moment the quest starts -----
+const Q = (id, name, desc, stat, goal, xp) => ({ id, name, desc, stat, goal, xp });
+const QDAILY = [   // one from each group a day: some pops, something skilful, something that takes time
+  [Q('d_pop20', 'Pop Squad', 'Pop 20 divers', 'kills', 20, 300), Q('d_pop25', 'Bubble Buster', 'Pop 25 divers', 'kills', 25, 350), Q('d_pop30', 'Tank Terror', 'Pop 30 divers', 'kills', 30, 400)],
+  [Q('d_head6', 'Aim High', 'Land 6 headshot pops', 'heads', 6, 350), Q('d_noodle3', 'Noodle Time', 'Pop 3 divers with the Pool Noodle', 'k_noodle', 3, 350), Q('d_harp4', 'Hook Shot', 'Harpoon 4 divers', 'harp_hits', 4, 350), Q('d_shot6', 'Clam Jam', 'Pop 6 divers with the Clam Shotgun', 'k_shotgun', 6, 300), Q('d_sea5', 'Seahorse Rider', 'Pop 5 divers with the Seahorse Sniper', 'k_seahorse', 5, 350), Q('d_special2', 'Special Delivery', 'Pop 2 divers with pad guns', 'k_special', 2, 350)],
+  [Q('d_play20', 'Stay Awhile', 'Spend 20 minutes in the tank', 'secs', 1200, 400), Q('d_win1', 'Winner Winner', 'Win a match', 'wins', 1, 450), Q('d_matches2', 'Two Rounds', 'Finish 2 matches', 'matches', 2, 350)]
+];
+const QMORE = [   // easy to very hard (hours of play); finishing a few of these unlocks cosmetics and achievements
+  Q('m_pop10', 'Warm Up', 'Pop 10 divers', 'kills', 10, 150), Q('m_play10', 'Getting Wet', 'Spend 10 minutes in the tank', 'secs', 600, 150), Q('m_head5', 'Aim High', 'Land 5 headshot pops', 'heads', 5, 200),
+  Q('m_matches3', 'Regular', 'Finish 3 matches', 'matches', 3, 250), Q('m_harp5', 'Hook, Line and Sinker', 'Harpoon 5 divers', 'harp_hits', 5, 300), Q('m_glass1', 'Oops!', 'Break a tank', 'glass', 1, 600),
+  Q('m_noodle10', 'Noodle Fighter', 'Pop 10 divers with the Pool Noodle', 'k_noodle', 10, 500), Q('m_pop50', 'Bubble Popper', 'Pop 50 divers', 'kills', 50, 600), Q('m_win3', 'Hot Streak', 'Win 3 matches', 'wins', 3, 800),
+  Q('m_head25', 'Headhunter', 'Land 25 headshot pops (unlocks the Jellyfish Hat)', 'heads', 25, 900), Q('m_play60', 'Tank Time', 'Spend 1 hour in the tank', 'secs', 3600, 1200), Q('m_win5', 'Champion', 'Win 5 matches (unlocks Mermaid Locks)', 'wins', 5, 1500),
+  Q('m_special20', 'Pad Master', 'Pop 20 divers with pad guns', 'k_special', 20, 1500), Q('m_pop200', 'Reef Menace', 'Pop 200 divers', 'kills', 200, 2500), Q('m_head100', 'Dead Eye', 'Land 100 headshot pops', 'heads', 100, 4000),
+  Q('m_play240', 'Deep Sea Resident', 'Spend 4 hours in the tank (unlocks the Bubble Jet Pack)', 'secs', 14400, 5000), Q('m_pop500', 'Terror of the Tank', 'Pop 500 divers', 'kills', 500, 6000), Q('m_win15', 'Undefeated', 'Win 15 matches', 'wins', 15, 6000)
+];
+const QALL = new Map([...QDAILY.flat(), ...QMORE].map(q => [q.id, q]));
+const qDay = () => new Date().toISOString().slice(0, 10);
+function qPickDaily(day) {                         // the same three for everyone on the same day
+  let h = 0; for (const ch of day) h = (h * 31 + ch.charCodeAt(0)) >>> 0; const rnd = () => (h = (h * 1664525 + 1013904223) >>> 0) / 4294967296; return QDAILY.map(g => g[Math.floor(rnd() * g.length)]);
+}
+function qEnsure(a) {
+  a.st = a.st || {}; a.qd = a.qd || {}; a.qb = a.qb || {}; const day = qDay(); let fresh = false;
+  if (!a.dq || a.dq.day !== day) { a.dq = { day, ids: qPickDaily(day).map(q => q.id), base: {}, done: {} }; for (const id of a.dq.ids) a.dq.base[id] = a.st[QALL.get(id).stat] || 0; fresh = true; dirty = true; }
+  for (const q of QMORE) if (a.qb[q.id] === undefined) { a.qb[q.id] = a.st[q.stat] || 0; dirty = true; }
+  return fresh;
+}
+const qProg = (a, q, daily) => Math.max(0, Math.min(q.goal, (a.st[q.stat] || 0) - (daily ? a.dq.base[q.id] : a.qb[q.id]) || 0));
+function qView(a) {
+  const f = (q, daily) => ({ id: q.id, name: q.name, desc: q.desc, xp: q.xp, goal: q.goal, p: qProg(a, q, daily), done: daily ? !!a.dq.done[q.id] : !!a.qd[q.id], unlock: COSMETICS.filter(c => c.quest === q.id).map(c => c.name) });
+  return { t: 'quests', day: a.dq.day, resetIn: 86400000 - (Date.now() % 86400000), daily: a.dq.ids.map(id => f(QALL.get(id), true)), more: QMORE.map(q => f(q, false)) };
+}
+function qSend(a, ws, force) {
+  if (!ws || ws.readyState !== 1) return; const now = Date.now();
+  if (!force && now - (ws._qs || 0) < 2000) { if (!ws._qt) ws._qt = setTimeout(() => { ws._qt = 0; qSend(a, ws, true); }, 2100); return; }
+  ws._qs = now; send(ws, qView(a));
+}
+function qCheck(a, ws) {                           // called whenever a counter moves: finish anything that reached its goal
+  const fresh = qEnsure(a); let any = false;
+  const fin = (q, daily) => {
+    if (daily ? a.dq.done[q.id] : a.qd[q.id]) return; if (qProg(a, q, daily) < q.goal) return;
+    if (daily) a.dq.done[q.id] = Date.now(); else a.qd[q.id] = Date.now(); a.xp += q.xp; a.st.quests = (a.st.quests || 0) + 1; if (daily) a.st.dailies = (a.st.dailies || 0) + 1; a.st['q_' + q.id] = 1; any = true; dirty = true;
+    if (ws) send(ws, { t: 'qdone', id: q.id, name: q.name, xp: q.xp, daily, unlock: COSMETICS.filter(c => c.quest === q.id).map(c => c.name) });
+  };
+  for (const id of a.dq.ids) fin(QALL.get(id), true); for (const q of QMORE) fin(q, false);
+  if (any) { const p = [...players.values()].find(x => x.ws === ws); if (p) p.lv = levelOf(a.xp).level; if (ws) send(ws, Object.assign({ t: 'prog' }, progOf(a))); checkAch(a, ws); }
+  if (ws) qSend(a, ws, fresh || any);
 }
 const sessions = new Map(), hashPw = (pw, salt) => crypto.scryptSync(pw, salt, 32).toString('hex');
-const progOf = a => Object.assign({ xp: a.xp, eq: a.eq, ach: Object.keys(a.ach || {}), st: a.st || {} }, levelOf(a.xp));
+const progOf = a => Object.assign({ xp: a.xp, eq: a.eq, ach: Object.keys(a.ach || {}), st: a.st || {}, qd: a.qd || {} }, levelOf(a.xp));
 function auth(ws, m) {
   const fail = e => send(ws, { t: 'auth', ok: false, error: e });
   const busy = u => [...wss.clients].some(c => c !== ws && c.acct === u && c.readyState === 1);   // one login per account at a time
-  if (m.token && sessions.has(m.token)) { const u0 = sessions.get(m.token); if (busy(u0)) return fail('That account is already logged in somewhere else.'); ws.acct = u0; const a = ACC[ws.acct]; checkAch(a, ws); return send(ws, Object.assign({ t: 'auth', ok: true, token: m.token, user: a.user, admin: a.user === ADMIN }, progOf(a))); }
+  if (m.token && sessions.has(m.token)) { const u0 = sessions.get(m.token); if (busy(u0)) return fail('That account is already logged in somewhere else.'); ws.acct = u0; const a = ACC[ws.acct]; qEnsure(a); fixEq(a); checkAch(a, ws); send(ws, Object.assign({ t: 'auth', ok: true, token: m.token, user: a.user, admin: a.user === ADMIN }, progOf(a))); return qCheck(a, ws); }
   const user = String(m.user || '').trim().toLowerCase(), pass = String(m.pass || '');
   if (!/^[a-z0-9_]{3,14}$/.test(user) || pass.length < 4 || pass.length > 64) return fail('Username: 3-14 letters/numbers. Password: 4+ characters.');
   let a = ACC[user];
@@ -385,14 +439,17 @@ function auth(ws, m) {
   else if (!a || a.hash !== hashPw(pass, a.salt)) return fail('Wrong username or password.');
   if (busy(user)) return fail('That account is already logged in somewhere else.');
   const token = crypto.randomBytes(16).toString('hex'); sessions.set(token, user); ws.acct = user;
-  checkAch(a, ws); send(ws, Object.assign({ t: 'auth', ok: true, token, user: a.user, admin: a.user === ADMIN }, progOf(a)));
+  qEnsure(a); fixEq(a); checkAch(a, ws); send(ws, Object.assign({ t: 'auth', ok: true, token, user: a.user, admin: a.user === ADMIN }, progOf(a))); qCheck(a, ws);
 }
 
 // ---------- secret admin panel: only the account named buddyboy32 (logged in with its password) may send these ----------
 const ADMIN = 'buddyboy32';
+function fixEq(a) {                                // drop equipped things that no longer exist or are not unlocked
+  a.eq = a.eq || {}; for (const k of Object.keys(a.eq)) { if (k === 'color') { if (!COLORS.includes(a.eq[k])) delete a.eq[k]; continue; } const c = COSMETICS.find(x => x.id === a.eq[k] && x.slot === k); if (!c || !unlocked(a, c)) delete a.eq[k]; }
+}
 function refreshAcct(u) {                        // after an admin edit: drop cosmetics above the new level and push the new numbers to anyone who is logged in as that account
   const a = ACC[u]; if (!a) return; const lv = levelOf(a.xp).level;
-  for (const k of Object.keys(a.eq)) { const c = COSMETICS.find(x => x.id === a.eq[k]); if (!c || c.lvl > lv) delete a.eq[k]; }
+  fixEq(a);
   for (const c of wss.clients) if (c.acct === u) send(c, Object.assign({ t: 'prog' }, progOf(a)));
   for (const p of players.values()) if (p.acct === u) { p.lv = lv; p.eq = a.eq; }
   dirty = true;
@@ -442,9 +499,10 @@ function admin(ws, m) {
   adminList(ws);
 }
 function equip(ws, m) {
-  const a = ws.acct && ACC[ws.acct]; if (!a) return; const lv = levelOf(a.xp), c = COSMETICS.find(x => x.id === m.id && x.slot === m.slot);
-  if (m.id === null && ['hat', 'paint', 'trail', 'suit', 'hair', 'face', 'back'].includes(m.slot)) delete a.eq[m.slot]; else if (c && lv.level >= c.lvl) a.eq[c.slot] = c.id; else return;
-  dirty = true; send(ws, Object.assign({ t: 'prog' }, progOf(a)));
+  const a = ws.acct && ACC[ws.acct]; if (!a) return; a.eq = a.eq || {}; const c = COSMETICS.find(x => x.id === m.id && x.slot === m.slot);
+  if (m.slot === 'color') { if (m.id === null || m.id === 'brass') delete a.eq.color; else if (COLORS.includes(m.id)) a.eq.color = m.id; else return; }
+  else if (m.id === null && SLOTS.includes(m.slot)) delete a.eq[m.slot]; else if (c && unlocked(a, c)) a.eq[c.slot] = c.id; else return;
+  dirty = true; send(ws, Object.assign({ t: 'prog' }, progOf(a))); for (const p of players.values()) if (p.ws === ws) p.eq = a.eq;
 }
 function giveXp(p, n) { if (!p.acct || !ACC[p.acct]) return; const a = ACC[p.acct]; a.xp += n; dirty = true; p.lv = levelOf(a.xp).level; checkAch(a, p.ws); send(p.ws, Object.assign({ t: 'prog' }, progOf(a))); }
 
@@ -554,7 +612,7 @@ function hurt(victim, att, dmg, head, src, wn) {
     victim.dead = true; harpEnd(victim); victim.deaths++; burst(victim);
     victim.streak = 0;
     if (victim !== att) {
-      att.kills++; if (!att.dead && !att.jug) att.hp = Math.max(att.hp, hpMax(att)); giveXp(att, 50 + (head ? 25 : 0));   // siphon: every kill refills your health
+      att.kills++; if (!att.dead && !att.jug) att.hp = Math.max(att.hp, hpMax(att)); { const kx = 30 + (head ? 10 : 0); giveXp(att, kx); send(att.ws, { t: 'xp', n: kx, head: !!head }); }   // siphon: every kill refills your health
       att.streak = (att.streak || 0) + 1; stat(att, 'kills'); if (head) stat(att, 'heads'); if (!wn) stat(att, 'k_' + att.w); if (att.sp && att.w === att.sp) stat(att, 'k_special'); stat(att, 'streak', att.streak, true);
       const nT = Date.now(); att.multi = nT - (att.lastKill || 0) < 4000 ? (att.multi || 1) + 1 : 1; att.lastKill = nT; send(att.ws, { t: 'streak', n: att.streak, multi: att.multi }); if (att.multi >= 2) stat(att, 'multi', att.multi, true);
     }
@@ -569,6 +627,10 @@ function hurt(victim, att, dmg, head, src, wn) {
 
 // ----- the harpoon (Q): a gauntlet on the left arm fires a spear on a rope. It sticks in walls, the floor, props and glass and reels you in (the client does the swing physics); on a diver it does 20 damage and drags him to you; on glass it does 1 damage to the tank. 5 s cooldown -----
 const HARP_RANGE = ARENA_BED.x, HARP_CD = 5000, harpCd = p => p.w === 'noodle' ? 3000 : HARP_CD;   // 3 s with the pool noodle
+const lidBars = A => A.round ? [] : [   // the black plastic rim around the top of a rectangular tank and its cross-braces (same sizes as the client draws)
+  { x: 0, z: A.z, w: 2 * A.x + 1.2, d: 1.2, y0: A.h - .05, h: A.h + .55 }, { x: 0, z: -A.z, w: 2 * A.x + 1.2, d: 1.2, y0: A.h - .05, h: A.h + .55 },
+  { x: A.x, z: 0, w: 1.2, d: 2 * A.z, y0: A.h - .05, h: A.h + .55 }, { x: -A.x, z: 0, w: 1.2, d: 2 * A.z, y0: A.h - .05, h: A.h + .55 },
+  ...[-.5, -.17, .17, .5].map(k => ({ x: A.x * k * 1.9, z: 0, w: .3, d: 2 * A.z - 1.5, y0: A.h - .05, h: A.h + .5 }))];
 function harpoon(p, dir) {
   const now = Date.now(); if (p.dead || inter || now - (p.harpAt || 0) < ((p.cheat && p.cheat.noharpcd) ? 0 : harpCd(p))) return; p.harpAt = now;
   const o = [p.x, p.y + 1.5, p.z], d = norm(dir), outside = outsideXZ(p.x, p.z), range = HARP_RANGE * ((p.cheat && p.cheat.harprange) || 1);
@@ -576,7 +638,20 @@ function harpoon(p, dir) {
   if (!outside) { const tw = tankLimit(o, d); if (tw < tMax) { tMax = tw; kind = 'wall'; } }
   for (const b of COLS) { const t = rayBox(o, d, b, .06); if (t !== null && t < tMax) { tMax = t; kind = 'prop'; } }
   for (const q of players.values()) { if (q === p || q.dead || friendly(p, q) || (q.cheat && q.cheat.invis)) continue; const hp = hitPlayer(o, d, q, REWIND, true); if (hp && hp.t < tMax) { tMax = hp.t; kind = 'player'; victim = q; } }
-  const e = o.map((v, k) => +(v + d[k] * tMax).toFixed(2));
+  if (!outside) for (const b of lidBars(ARENA)) { const t = rayBox(o, d, b, 0); if (t !== null && t < tMax + .03) { tMax = Math.min(tMax, t); kind = 'prop'; } }   // the plastic rim and cross-braces across the top of the tank can be hooked
+  let dropE = null;
+  if (kind === 'miss' && !outside) {                // out of rope: the hook sags like a real grappling hook, so aiming a bit above a ledge still catches it
+    let P = o.map((v, k) => v + d[k] * tMax), prev = P;
+    for (let i = 1; i <= 28 && !dropE; i++) {
+      const sg = i * .25, cur = [P[0] + d[0] * sg, P[1] + d[1] * sg - .16 * sg * sg, P[2] + d[2] * sg], sd = [cur[0] - prev[0], cur[1] - prev[1], cur[2] - prev[2]], len = Math.hypot(...sd) || 1e-6, sn = sd.map(v => v / len);
+      let bt = len, hit = null;
+      for (const b of COLS) { const t = rayBox(prev, sn, b, .06); if (t !== null && t < bt) { bt = t; hit = 'prop'; } }
+      if (cur[1] <= .05 && prev[1] > .05) { const t = (prev[1] - .05) / Math.max(1e-6, prev[1] - cur[1]) * len; if (t < bt) { bt = t; hit = 'floor'; } }
+      if (!hit && (Math.abs(cur[0]) > ARENA.x || Math.abs(cur[2]) > ARENA.z)) break;
+      if (hit) { dropE = prev.map((v, k) => v + sn[k] * bt); kind = hit; } prev = cur;
+    }
+  }
+  const e = dropE ? dropE.map(v => +v.toFixed(2)) : o.map((v, k) => +(v + d[k] * tMax).toFixed(2));
   if (kind === 'wall') {
     if (e[1] >= ARENA.h - .05) kind = 'miss';       // the water surface is nothing to hook onto
     else if (e[1] > .05 && MAP.glass && !drained) { gh = glassHit(o, d); if (gh && gh.t <= tMax + 1e-3) { kind = 'glass'; addCrack(gh, 6, p, 1); } }
@@ -731,6 +806,7 @@ wss.on('connection', ws => {
     if (m.t === 'auth') return auth(ws, m);
     if (m.t === 'logout') { ws.acct = null; return; }
     if (m.t === 'equip') return equip(ws, m);
+    if (m.t === 'qreq') { const a = ws.acct && ACC[ws.acct]; if (a) { qEnsure(a); qSend(a, ws, true); } return; }
     if (m.t === 'admin') return admin(ws, m);
     if (m.t === 'face') { const f = m.f === 'logan' || m.f === 'alissa' ? m.f : ''; ws.face = f; if (p) p.face = f; return; }   // secret cosmetic: a friend's face on the helmet porthole
     if (m.t === 'join') {                          // first dive, or a re-dive after being popped

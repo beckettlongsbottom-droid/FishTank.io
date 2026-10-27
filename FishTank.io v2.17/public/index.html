@@ -328,21 +328,121 @@ body.touch #lb{display:none}
 #jugb{top:154px}
 #lb{top:30px}
 body.touch #rcol{top:52px}
+
+/* ---- FIX 25: GUI scale, tabbed settings, reticle ---- */
+:root{--gs:1}
+#hl{transform:scale(var(--gs));transform-origin:0 100%}#ammo,#wname{transform:scale(var(--gs));transform-origin:100% 100%}#rcol{transform:scale(var(--gs));transform-origin:100% 0}#lb{transform:scale(var(--gs));transform-origin:0 0}
+#mt,#modeb,#kidb,#jugb,#board{transform:translateX(-50%) scale(var(--gs));transform-origin:50% 0}#specb{transform:translateX(-50%) scale(var(--gs));transform-origin:50% 100%}
+#mtop{width:calc(100% / var(--gs));transform:scale(var(--gs));transform-origin:0 0;box-sizing:border-box}#mbot{transform:scale(var(--gs));transform-origin:50% 100%}
+.pnl>div{max-width:calc(96vw / var(--gs));max-height:calc(90vh / var(--gs));transform:scale(var(--gs))}
+#mend>div{transform:scale(var(--gs));max-height:calc(92vh / var(--gs))}
+body.inmenu #admb{top:auto;bottom:12px;left:12px;right:auto;height:30px;font-size:13px;padding:0 12px;opacity:.75}
+#setp>#setbox{width:min(780px,94vw);height:min(640px,88vh);padding:0;display:flex;flex-direction:column;overflow:hidden}
+#sethead{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 0}#sethead h3{margin:0}#sethead button{margin:0}
+#setab{display:flex;gap:8px;margin:10px 22px 8px;padding-bottom:10px;border-bottom:3px solid #ffffff30;overflow-x:auto;flex:none}#setab button{margin:0;white-space:nowrap}
+#setbody{flex:1 1 auto;overflow:auto;padding:4px 22px 18px;-webkit-overflow-scrolling:touch}
+.stp h4{margin:16px 0 4px;font:400 17px 'Bagel Fat One',sans-serif;color:var(--sun);letter-spacing:.02em}.stp h4:first-child{margin-top:4px}
+.stp label{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:7px 0}.stp label input[type=range]{flex:0 1 260px;min-width:110px}.stp small{display:block;opacity:.8;margin-top:8px;font:700 13px Nunito,sans-serif}
+.stp output{min-width:46px;text-align:right}.pnl button.mini{padding:4px 12px;font-size:14px;margin:0}
+#st_ctl .ctl{display:block!important;max-height:none;overflow:visible;padding:0}body.touch #st_ctl .kb,body:not(.touch) #st_ctl .tt{display:none!important}
+#st_ctl .cr{grid-template-columns:minmax(120px,auto) 1fr}
+#retprev{display:grid;place-items:center;height:120px;border-radius:16px;margin:2px 0 6px;background:radial-gradient(ellipse at 50% 40%,#2a9db8,#0a4a5c 80%);border:3px solid #fff4}#retprev canvas{width:120px;height:120px}
+#retshapes{display:flex;gap:10px}#retshapes button{width:76px;height:76px;padding:0;margin:0;background:#0a4a5c;box-shadow:0 4px 0 #062f3b;display:grid;place-items:center}#retshapes button.on{background:var(--sun);box-shadow:0 4px 0 #b8860b}#retshapes canvas{width:56px;height:56px;pointer-events:none}
+#cross{width:0;height:0;margin:0;border:0;border-radius:0;opacity:1}#retc{position:absolute;left:-96px;top:-96px;width:192px;height:192px}
+body.hc #hl,body.hc #ammo,body.hc #wname,body.hc #feed,body.hc #lb,body.hc #mt{text-shadow:0 0 2px #000,0 0 4px #000,0 2px 0 #000!important}body.hc .bar2,body.hc #hp{border-width:5px}
+@media (max-width:700px){.stp label{flex-wrap:wrap}.stp label input[type=range]{flex:1 1 100%}}
+
+/* ---- FIX 25: quests, xp popup, menu layout ---- */
+#mright{display:flex;flex-direction:column;gap:10px;align-items:flex-end;flex:none}
+#qcard{width:clamp(150px,19vw,230px);text-align:left;background:#06323fd0;border:3px solid #fff6;border-radius:18px;padding:8px 12px 10px;box-sizing:border-box}
+#qcard h3{margin:0 0 6px;font:400 18px 'Bagel Fat One',sans-serif;color:var(--sun)}
+.qi{margin:0 0 7px;font:800 12px Nunito,sans-serif;color:#fff;line-height:1.25}.qi b{display:flex;justify-content:space-between;gap:6px;font-weight:800}.qi b em{font-style:normal;color:var(--sun)}
+.qi i{display:block;height:7px;border-radius:5px;background:#0007;overflow:hidden;margin-top:3px}.qi i u{display:block;height:100%;background:linear-gradient(90deg,#ffd23f,#ff9a3c);border-radius:5px;text-decoration:none}
+.qi.done b span{text-decoration:line-through;opacity:.6}.qi.done i u{background:#3be58a}.qi small{display:block;opacity:.75;margin-top:2px;font-size:11px}
+#qmore{width:100%;margin:2px 0 0;padding:6px 8px;font-size:14px;border-radius:12px;background:#2a9db8;color:#fff;border:0;box-shadow:0 3px 0 #17687c}
+#questp>#qbox{width:min(720px,94vw);height:min(660px,88vh);padding:0;display:flex;flex-direction:column;overflow:hidden}
+#qhead{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 0}#qhead h3{margin:0}#qhead button{margin:0}
+#qresets{padding:2px 22px 6px;font:800 13px Nunito,sans-serif;opacity:.85}
+#qlist{flex:1 1 auto;overflow:auto;padding:0 22px 18px;-webkit-overflow-scrolling:touch}
+#qlist h4{margin:14px 0 6px;font:400 17px 'Bagel Fat One',sans-serif;color:var(--sun)}
+#qlist .qi{background:#06323f99;border-radius:12px;padding:8px 12px;font-size:14px}#qlist .qi i{height:9px}#qlist .qi small{font-size:12px}
+.qi .ul{color:#7ff0ff}
+.dn.xp{color:#ffe14a;font-size:20px;text-shadow:0 2px 0 #6b4a00,0 0 6px #000a}
+@media (max-width:820px){#qcard{display:none}#mright{display:none}}
+@media (max-width:820px),(max-height:600px){#qbtn{display:inline-block}}
+#qbtn{display:none}
+@media (min-width:821px) and (min-height:601px){#qbtn{display:none}}
+/* menu: cleaner, no overlaps on small / touch screens */
+@media (max-width:820px),(max-height:520px){
+  #macc{padding:6px 10px 8px;border-width:3px;border-radius:16px;max-width:min(420px,70vw)}
+  #mlogo p,#online,#note:empty{display:none}
+  #mtop{gap:8px}
+  #guns{gap:4px}.gun{width:clamp(36px,8.5vh,56px)}
+  #mbtns{gap:6px}#mbtns #msub{flex-wrap:wrap}
+  #mbtns #play{font-size:clamp(20px,5vh,40px);padding:clamp(8px,2vh,16px) 14px;box-shadow:0 6px 0 #b83b3b}
+}
+@media (max-height:520px) and (orientation:landscape){#mlogo .logo{font-size:clamp(26px,8vh,44px)}#gname{display:none}}
+body.touch #pkey{display:none}
+/* bounce in / out */
+@keyframes mbIn{0%{transform:translateY(-34px);opacity:0}60%{transform:translateY(7px);opacity:1}100%{transform:none}}
+@keyframes mbUp{0%{transform:translateY(40px);opacity:0}60%{transform:translateY(-8px);opacity:1}100%{transform:none}}
+@keyframes mbBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes mbOut{to{transform:translateY(40px);opacity:0}}
+body:not(.noanim) #menu:not(.lk) #macc{animation:mbIn .6s .05s both}
+body:not(.noanim) #menu:not(.lk) #mright>*{animation:mbIn .6s .15s both}body:not(.noanim) #menu:not(.lk) #mright>*+*{animation-delay:.25s}
+body:not(.noanim) #menu:not(.lk) #mlogo .logo{animation:mbIn .7s both,mbBob 3.4s 1s ease-in-out infinite}
+body:not(.noanim) #menu:not(.lk) #gov{animation:mbIn .6s .3s both}
+body:not(.noanim) #menu:not(.lk) #guns{animation:mbUp .6s .2s both}
+body:not(.noanim) #menu:not(.lk) #mbtns #play{animation:mbUp .6s .3s both}
+body:not(.noanim) #menu:not(.lk) #msub{animation:mbUp .6s .42s both}
+body:not(.noanim) .pnl[style*="grid"]>div{animation:mbUp .35s both}
+body.noanim #lw,body.noanim #lw *{animation:none!important}
+
+#anch{position:fixed;inset:0;pointer-events:none;z-index:8;display:none;background:radial-gradient(ellipse at 50% 50%,#0000 40%,#d0201e66 100%)}
+#anch .hd{position:absolute;left:50%;top:56%;width:min(300px,42vw);height:min(300px,42vw);margin:calc(min(300px,42vw) / -2) 0 0 calc(min(300px,42vw) / -2);filter:drop-shadow(0 6px 8px #000a)}
+#anch .rp{position:absolute;left:50%;top:56%;height:12px;width:90vmax;transform-origin:0 50%;border-radius:6px;background:repeating-linear-gradient(90deg,#e8d29a 0 14px,#a8844a 14px 24px);box-shadow:0 3px 6px #000a}
+#anch b{position:absolute;left:0;right:0;top:12%;text-align:center;font:400 clamp(26px,6vh,52px) 'Bagel Fat One',sans-serif;color:#ff5a4a;text-shadow:0 4px 0 #5a0000,0 0 14px #000;animation:anp .5s infinite alternate}
+@keyframes anp{to{transform:scale(1.07)}}
+
+/* ---- FIX 25: locker with a section bar ---- */
+#menu.lk{background:linear-gradient(90deg,#04222b11 0,#04222b11 38%,#031a21f4 38%)}
+#lkr{width:62%;display:flex;flex-direction:column;padding:16px 20px 14px;overflow:hidden;box-sizing:border-box}
+#lkhead{display:flex;justify-content:space-between;align-items:center}#lkhead .btn{margin:0;padding:8px 20px;font-size:18px}
+#lvl{font:800 13px Nunito,sans-serif;opacity:.85;margin:2px 0 8px}
+#lkbody{flex:1 1 auto;display:flex;gap:12px;min-height:0}
+#lksec{display:flex;flex-direction:column;gap:6px;flex:none;width:clamp(86px,11vw,118px);overflow-y:auto;padding-right:2px}
+#lksec button{display:flex;flex-direction:column;align-items:center;gap:2px;margin:0;padding:7px 4px 6px;border-radius:14px;border:0;background:#0a4a5c;color:#fff;font:400 14px 'Bagel Fat One',sans-serif;box-shadow:0 3px 0 #062f3b;cursor:pointer}
+#lksec button svg{width:26px;height:26px}#lksec button.on{background:var(--sun);color:#5a3a00;box-shadow:0 3px 0 #b8860b}#lksec hr{border:0;border-top:2px solid #fff3;margin:2px 6px;width:calc(100% - 12px)}
+#lkmain{flex:1 1 auto;overflow-y:auto;min-width:0;-webkit-overflow-scrolling:touch;padding-right:4px}
+#cosg{margin:0}.cos .sw{height:74px;border-radius:12px;margin-bottom:6px;box-shadow:inset 0 -8px 0 #0004,inset 0 0 0 3px #fff4}.cos .qn{color:#7ff0ff}
+@media (max-width:820px){#menu.lk{background:#031a21f4}#lkr{width:100%}#lksec{width:64px}#lksec button{font-size:0;padding:8px 2px}#lksec button svg{width:28px;height:28px}}
 </style></head><body class="inmenu"><div id="wtr"></div>
 <div id="setb" title="Settings">Settings</div><div id="admb" title="Admin">Admin</div>
-<div class="pnl" id="setp"><div><h3>Settings</h3>
-<div id="setab"><button class="on" data-t="snd">Sound</button><button data-t="gfx">Graphics</button></div>
-<div id="st_snd"><label>Master volume <input type="range" min="0" max="100" id="v_master"></label><label>Music <input type="range" min="0" max="100" id="v_music"></label><label>Sound effects <input type="range" min="0" max="100" id="v_sfx"></label><label>Look sensitivity <input type="range" min="25" max="200" id="v_sens"></label>
+<div class="pnl" id="questp"><div id="qbox"><div id="qhead"><h3>Quests</h3><button id="qx">Done</button></div><div id="qresets"></div><div id="qlist"></div></div></div>
+<div class="pnl" id="setp"><div id="setbox">
+<div id="sethead"><h3>Settings</h3><button id="setx">Done</button></div>
+<div id="setab"><button class="on" data-t="snd">Sound</button><button data-t="gfx">Graphics</button><button data-t="ui">Interface</button><button data-t="ret">Reticle</button><button data-t="ctl">Controls</button></div>
+<div id="setbody">
+<div class="stp" id="st_snd"><label>Master volume <input type="range" min="0" max="100" id="v_master"></label><label>Music <input type="range" min="0" max="100" id="v_music"></label><label>Sound effects <input type="range" min="0" max="100" id="v_sfx"></label><label>Look sensitivity <input type="range" min="25" max="200" id="v_sens"></label>
 <small>M mutes everything.</small></div>
-<div id="st_gfx" style="display:none"><label>Quality <span class="seg" id="g_q"><button data-q="low">Low</button><button data-q="med">Medium</button><button data-q="high">High</button></span></label>
-<label>Render sharpness <input type="range" min="40" max="100" id="g_scale"></label><label>Field of view <input type="range" min="60" max="110" id="g_fov"></label><label>Screen shake <input type="range" min="0" max="100" id="g_shake"></label><label>Walking bob <input type="range" min="0" max="200" id="g_bob"></label><label>Bubbles and particles <input type="range" min="20" max="100" id="g_parts"></label>
-<label>Hit direction arrows <input type="checkbox" id="g_dir"></label><label>Floating damage numbers <input type="checkbox" id="g_dmg"></label><label>Low-health red edge <input type="checkbox" id="g_vig"></label><label>Show FPS (F) <input type="checkbox" id="g_fps"></label>
+<div class="stp" id="st_gfx" style="display:none"><h4>Performance</h4><label>Quality <span class="seg" id="g_q"><button data-q="low">Low</button><button data-q="med">Medium</button><button data-q="high">High</button></span></label>
+<label>Render sharpness <input type="range" min="40" max="100" id="g_scale"></label><label>Bubbles and particles <input type="range" min="20" max="100" id="g_parts"></label><label>Show FPS (F) <input type="checkbox" id="g_fps"></label>
+<h4>Picture</h4><label>Field of view <input type="range" min="60" max="110" id="g_fov"></label><label>Brightness <input type="range" min="60" max="150" id="g_bright"></label><label>Contrast <input type="range" min="70" max="150" id="g_contrast"></label><label>Colour strength <input type="range" min="40" max="160" id="g_sat"></label><label>Water clarity <input type="range" min="30" max="200" id="g_haze"></label>
+<label>Reset picture <button id="g_pic0" class="mini">Reset</button></label>
+<h4>Motion</h4><label>Screen shake <input type="range" min="0" max="100" id="g_shake"></label><label>Walking bob <input type="range" min="0" max="200" id="g_bob"></label><label>Menu animations <input type="checkbox" id="g_anim"></label>
 <button id="g_full">Fullscreen</button><small>Lower sharpness or particles if the game is choppy. The game also lowers sharpness by itself when it drops under 55 fps.</small></div>
-<button id="ctlb">Controls</button><button id="setx">Done</button></div></div>
-<div class="pnl" id="ctlp"><div style="width:min(700px,94vw)"><h3>Controls</h3>
-<div class="ctl kb"><div class="cr"><b>W A S D</b><span>Swim around</span></div><div class="cr"><b>Space</b><span>Swim up / jump</span></div><div class="cr"><b>Shift or E</b><span>Dash (every gun has its own cooldown)</span></div><div class="cr"><b>Mouse</b><span>Aim</span></div><div class="cr"><b>Left click</b><span>Fire (hold for the SMG, Soaker and to charge the Anglerfish)</span></div><div class="cr"><b>Right click</b><span>Scope (Seahorse Sniper)</span></div><div class="cr"><b>R</b><span>Reload</span></div><div class="cr"><b>Q</b><span>Harpoon: hook a wall, prop or glass and swing (Q again or Space lets go); on a diver it drags him to you. 5 s cooldown</span></div><div class="cr"><b>K</b><span>Pop yourself</span></div><div class="cr"><b>Tab</b><span>Scoreboard</span></div><div class="cr"><b>1 - 5</b><span>Pick a gun in the menu</span></div><div class="cr"><b>M</b><span>Mute everything</span></div><div class="cr"><b>Esc</b><span>Let go of the mouse</span></div></div>
-<div class="ctl tt"><div class="cr"><b>Left bubble</b><span>Swim around</span></div><div class="cr"><b>Drag anywhere</b><span>Look around</span></div><div class="cr"><b>FIRE</b><span>Shoot (hold to charge). Keep your finger on it and drag to look and shoot</span></div><div class="cr"><b>JUMP</b><span>Swim up; tap in mid-air to dash</span></div><div class="cr"><b>RELOAD</b><span>Reload</span></div><div class="cr"><b>HOOK</b><span>Harpoon (tap again to let go)</span></div><div class="cr"><b>SCOPE</b><span>Zoom in (sniper)</span></div><div class="cr"><b>SCORES</b><span>Scoreboard</span></div></div>
-<button id="ctlx">Back</button></div></div>
+<div class="stp" id="st_ui" style="display:none"><h4>Size</h4><label>GUI scale <input type="range" min="60" max="130" id="g_gui"><output id="g_guio"></output></label><small id="g_guin"></small>
+<h4>On screen</h4><label>Hit direction arrows <input type="checkbox" id="g_dir"></label><label>Floating damage numbers <input type="checkbox" id="g_dmg"></label><label>XP pop-ups on pops <input type="checkbox" id="g_xp"></label><label>Low-health red edge <input type="checkbox" id="g_vig"></label><label>Bold HUD outlines <input type="checkbox" id="g_hc"></label>
+<small>The GUI scale only changes menus and the HUD around the screen edges. It stops growing when your window is too small for it, so nothing overlaps.</small></div>
+<div class="stp" id="st_ret" style="display:none"><div id="retprev"><canvas id="retpc" width="384" height="384"></canvas></div>
+<h4>Shape</h4><div id="retshapes"><button data-s="cross"></button><button data-s="ring"></button><button data-s="dot"></button><button data-s="brackets"></button></div>
+<h4>Look</h4><label>Colour <input type="color" id="r_color"></label><label>Outline colour <input type="color" id="r_ocol"></label><label>Outline <input type="checkbox" id="r_outl"></label><label>Size <input type="range" min="50" max="220" id="r_size"></label><label>Thickness <input type="range" min="1" max="8" id="r_thick"></label><label>Opacity <input type="range" min="20" max="100" id="r_alpha"></label><label>Centre dot <input type="checkbox" id="r_dot"></label>
+<h4>Behaviour</h4><label>Grows with the gun's spread <input type="checkbox" id="r_dyn"></label><label>Resting gap <input type="range" min="0" max="20" id="r_gap"></label><small>With spread on, the reticle opens up to match the real pellet spread of the gun in your hands, kicks wider while you shoot or swim fast, then settles.</small></div>
+<div class="stp" id="st_ctl" style="display:none"><h4>Keyboard and mouse</h4><div class="ctl kb"><div class="cr"><b>W A S D</b><span>Swim around</span></div><div class="cr"><b>Space</b><span>Swim up / jump</span></div><div class="cr"><b>Shift or E</b><span>Dash (every gun has its own cooldown)</span></div><div class="cr"><b>Mouse</b><span>Aim</span></div><div class="cr"><b>Left click</b><span>Fire (hold for the SMG, Soaker and to charge the Anglerfish)</span></div><div class="cr"><b>Right click</b><span>Scope (Seahorse Sniper)</span></div><div class="cr"><b>R</b><span>Reload</span></div><div class="cr"><b>Q</b><span>Harpoon: hook a wall, prop or glass and swing (Q again or Space lets go); on a diver it drags him to you. 5 s cooldown</span></div><div class="cr"><b>K</b><span>Pop yourself</span></div><div class="cr"><b>Tab</b><span>Scoreboard</span></div><div class="cr"><b>1 - 5</b><span>Pick a gun in the menu</span></div><div class="cr"><b>M</b><span>Mute everything</span></div><div class="cr"><b>Esc</b><span>Let go of the mouse</span></div></div>
+<h4>Touch</h4><div class="ctl tt"><div class="cr"><b>Left bubble</b><span>Swim around</span></div><div class="cr"><b>Drag anywhere</b><span>Look around</span></div><div class="cr"><b>FIRE</b><span>Shoot (hold to charge). Keep your finger on it and drag to look and shoot</span></div><div class="cr"><b>JUMP</b><span>Swim up; tap in mid-air to dash</span></div><div class="cr"><b>RELOAD</b><span>Reload</span></div><div class="cr"><b>HOOK</b><span>Harpoon (tap again to let go)</span></div><div class="cr"><b>SCOPE</b><span>Zoom in (sniper)</span></div><div class="cr"><b>SCORES</b><span>Scoreboard</span></div></div>
+<h4>Controller (Xbox layout)</h4><div class="ctl pd"><div class="cr"><b>Left stick</b><span>Swim around (also moves through the menu)</span></div><div class="cr"><b>Right stick</b><span>Aim</span></div><div class="cr"><b>A</b><span>Jump, and press again in mid-air to dash (double jump)</span></div><div class="cr"><b>Right trigger</b><span>Fire (hold to charge the Anglerfish)</span></div><div class="cr"><b>Left trigger</b><span>Scope (Seahorse Sniper)</span></div><div class="cr"><b>X</b><span>Reload</span></div><div class="cr"><b>Left bumper</b><span>Harpoon hook (again to let go)</span></div><div class="cr"><b>Right stick click</b><span>Pop yourself</span></div><div class="cr"><b>View / Back</b><span>Hold for the scoreboard</span></div><div class="cr"><b>D-pad / left stick</b><span>Move around the menus</span></div><div class="cr"><b>A / B</b><span>Pick / go back in menus</span></div><div class="cr"><b>Start</b><span>Dive in from the menu</span></div><div class="cr"><b>Bumpers</b><span>Change gun in the menu</span></div>
+<label>Controller look speed <input type="range" min="40" max="200" id="g_padsens"></label><label>Invert look up/down <input type="checkbox" id="g_padinv"></label></div></div>
+</div></div></div>
 <div class="pnl" id="admp"><div class="book">
 <div class="pg pl"><h3>Admin Grimoire</h3><p class="sub">Your powers. Only this account can open this book (press ` to open it in a match).</p><div id="admpow"></div></div>
 <div class="spine"></div>
@@ -350,18 +450,18 @@ body.touch #rcol{top:52px}
 <button id="admx" title="Close">&times;</button></div></div>
 <div id="menu">
   <div id="mtop"><div id="macc"><div id="acct"></div><input id="name" maxlength="14" placeholder="Guest diver name" autocomplete="off"></div>
-    <div id="lbp"><h3>Top Divers</h3><div id="lb2"></div></div></div>
+    <div id="mright"><div id="lbp"><h3>Top Divers</h3><div id="lb2"></div></div><div id="qcard"><h3>Daily Quests</h3><div id="qdl"></div><button class="btn" id="qmore">MORE QUESTS</button></div></div></div>
   <div id="mlogo"><div class="lw" id="lw"><h1 class="logo">FishTank.io</h1></div><p>Dive in. Pop everyone.</p></div>
   <div id="stage"></div>
   <div id="gov"><div id="govn"></div><div id="govb"></div><div id="govc"></div><div id="govs"></div></div>
   <div id="mbot"><div id="note"></div><div id="guns"></div><div id="gname"></div>
-    <div id="mbtns"><div id="playw"><button class="btn go" id="play" disabled>Connecting…</button><div id="pkey"><kbd>SPACE</kbd> to dive in</div></div><div id="msub"><button class="btn" id="lockbtn">Locker</button><button class="btn" id="specbtn">Spectate</button><button class="btn" id="setmenu" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path fill="currentColor" d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.3 7.3 0 0 0-1.69-.98l-.38-2.65A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1a.5.5 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></div></div>
+    <div id="mbtns"><div id="playw"><button class="btn go" id="play" disabled>Connecting…</button><div id="pkey"><kbd>SPACE</kbd> to dive in</div></div><div id="msub"><button class="btn" id="lockbtn">Locker</button><button class="btn" id="specbtn">Spectate</button><button class="btn" id="qbtn">Quests</button><button class="btn" id="setmenu" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path fill="currentColor" d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.3 7.3 0 0 0-1.69-.98l-.38-2.65A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1a.5.5 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></div></div>
     <div id="online"></div></div>
-  <div id="locker"><div id="lkr"><h2>Locker</h2><div id="lvl"></div><div id="lktabs"><button class="on" data-tab="cos">Cosmetics</button><button data-tab="ach">Achievements</button></div><div id="cosg"></div><div id="emog"></div><div id="achg"></div><button class="btn" id="lkback">Back</button></div></div>
+  <div id="locker"><div id="lkr"><div id="lkhead"><h2>Locker</h2><button class="btn" id="lkback">Back</button></div><div id="lvl"></div><div id="lkbody"><div id="lksec"></div><div id="lkmain"><div id="cosg"></div><div id="emog"></div><div id="achg"></div></div></div></div></div>
 </div>
 <div id="mt"></div><div id="modeb"></div><div id="kidb"><div></div><span>THE KID</span></div><div id="podw"><div id="podf"></div><i class="pbar t"></i><i class="pbar b"></i><div id="podt">FINAL RESULTS</div><div id="podc"></div></div><div id="mend"><div></div></div><div id="jugb"><div class="jn"></div><div class="jbar"><i></i></div></div><div id="specb"></div>
 <div id="hud">
-  <canvas id="esp"></canvas><div id="vig"></div><div id="hpv"></div><div id="dirs"></div><div id="flash"></div><div id="cross"></div><div id="hit"><i></i><i></i></div><div id="dmgs"></div><div id="callout"></div><div id="fps"></div><div id="lb"></div>
+  <canvas id="esp"></canvas><div id="vig"></div><div id="anch"><div class="rp"></div><svg class="hd" viewBox="0 0 100 100"><g id="anh" transform="translate(50 50)"><path d="M-6 8L-6 -40L-22 -26L0 -52L22 -26L6 -40L6 8Z" fill="#d7dde2" stroke="#2a3238" stroke-width="3" stroke-linejoin="round"/><path d="M0 -52L-16 -20L0 -26L16 -20Z" fill="#b6c0c8" stroke="#2a3238" stroke-width="2"/><rect x="-5" y="8" width="10" height="46" rx="3" fill="#8a5a2b" stroke="#2a1608" stroke-width="3"/><circle cx="0" cy="58" r="6" fill="none" stroke="#e8d29a" stroke-width="4"/></g></svg><b>HARPOONED!</b></div><div id="hpv"></div><div id="dirs"></div><div id="flash"></div><div id="cross"><canvas id="retc" width="384" height="384"></canvas></div><div id="hit"><i></i><i></i></div><div id="dmgs"></div><div id="callout"></div><div id="fps"></div><div id="lb"></div>
   <div id="rcol"><div id="feed"></div><div id="toasts"></div></div><div id="board"><table id="bt"></table></div>
   <div id="slots"></div><div id="scope"></div>
   <div id="hl"><div class="lab"><span>Dive Boost</span><span id="bn">READY</span></div><div class="bar2"><i id="bf"></i></div>
@@ -402,7 +502,7 @@ let MODE = 'ffa', myTm = -1, TS = [0, 0], jug = null, spec = { on: false, id: 0,
 let inMenu = true, menuAng = 0, WP = {}, OB = [], COL = [], AR, myId, ws, cur = 'pistol', me = { hp: 100, ammo: 0, rel: false }, GEY = [], COS = [], FDEF = [], tOff = 0;
 let swX = 0, swY = 0, lyaw = 0, lpit = 0, bobT = 0, bobA = 0, acct = null, guest = false, lockerOn = false, prevD = null, deathBy = 0, kid = null, shake = 0, vm, gunVM, recoil = 0, relStart = 0, scoped = false, boostReady = 0, boostCD = 2000, lastBT = '';
 const esc = s => String(s).replace(/[<>&"]/g, ''), _v1 = new THREE.Vector3(), _zv = new THREE.Vector3(0, 0, 1), DOWN = new THREE.Vector3(0, -1, 0), _yv = new THREE.Vector3(0, 1, 0), _xv = new THREE.Vector3(1, 0, 0);
-let EMO = [], ACHS = [], chargeT = 0, holdT = 0, padState = { w: 'squid', taken: false, next: 0 }, selfG = null, kcPov = 0, deathAuto = false, deathT = 0, menuW = 'pistol', lastKC = '', hasSpShown = false, wnShown = '', padHudT = 0, lkTab = 'cos', hasSp = false;
+let EMO = [], ACHS = [], chargeT = 0, holdT = 0, padState = { w: 'squid', taken: false, next: 0 }, selfG = null, kcPov = 0, deathAuto = false, deathT = 0, menuW = 'pistol', lastKC = '', hasSpShown = false, wnShown = '', padHudT = 0, lkTab = 'color', hasSp = false;
 const players = new Map(), bubbles = [], inks = [], puffs = [], pearls = [], dummy = new THREE.Matrix4(), _q = new THREE.Quaternion(), _s = new THREE.Vector3(), _p = new THREE.Vector3(), _t = new THREE.Vector3(), _c = new THREE.Color();
 function pool(m, max) {                              // one GPU-instanced mesh per particle type = one draw call each
   const im = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 8, 6), m, max); im.frustumCulled = false;
@@ -1133,12 +1233,17 @@ function makeGun(id) {
     U.muz = pn(0, 0, -1.2); U.relPt = pn(0, .1, 0); U.grip.set(0, 0, -.1); U.fore.set(0, -.02, .1);   // grip = right hand (top), fore = left hand (bottom)
     let pt = 0, py = 0, pp = 0; const wa = segs.map(() => [0, 0, 0, 0]);   // per segment: yaw angle, yaw speed, pitch angle, pitch speed
     const E = new THREE.Euler(0, 0, 0, 'YXZ'), ease = k => k * k * (3 - 2 * k), lerp = (a, b, k) => a + (b - a) * k;
+    let side = 0, prevX = 1e9, dY0 = -.1, dP0 = .92, dR0 = -.14, dispY = dY0, dispP = dP0, dispR = dR0;   // side 0 = right-to-left swoop, 1 = the backhand back up to the right
     U.upd = s => { const x = s.since; let yw, pc, rl;
-      if (x < 130) { const k = ease(x / 130); yw = lerp(-.18, -.9, k); pc = lerp(1.08, 1.22, k); rl = lerp(0, -.25, k); }            // wind back over the right shoulder
-      else if (x < 300) { const k = ease((x - 130) / 170); yw = lerp(-.9, 1.2, k); pc = lerp(1.22, .4, k); rl = lerp(-.25, .2, k); }    // flat bat swing across the body
-      else if (x < 380) { yw = 1.2; pc = .4; rl = .2; }
-      else if (x < 700) { const k = ease((x - 380) / 320); yw = lerp(1.2, -.18, k); pc = lerp(.4, 1.08, k); rl = lerp(.2, 0, k); }
-      else { yw = -.18 + Math.sin(s.t * 1.3) * .025; pc = 1.08 + Math.sin(s.t * 1.9) * .02; rl = Math.sin(s.t * 1.1) * .02; }   // held nearly upright, swaying a little like it is alive
+      if (x < prevX - 5) side = prevX < 1000 ? 1 - side : 0; prevX = x;                                      // spam it and the next swing comes back the other way
+      const IY = -.1 + Math.sin(s.t * 1.3) * .02, IP = .92 + Math.sin(s.t * 1.9) * .02, IR = -.14 + Math.sin(s.t * 1.1) * .015;   // held up and forward like a lightsaber
+      const W = side ? [1.4, .2, .4] : [-.85, 1.35, -.4], E1 = side ? [-.95, 1.2, -.35] : [1.3, .22, .4];
+      if (x < 110) { const k = ease(x / 110); yw = lerp(IY, W[0], k); pc = lerp(IP, W[1], k); rl = lerp(IR, W[2], k); }
+      else if (x < 280) { const k = ease((x - 110) / 170); yw = lerp(W[0], E1[0], k); pc = lerp(W[1], E1[1], k) - Math.sin(k * Math.PI) * .25; rl = lerp(W[2], E1[2], k); }   // the swoop dips through the middle
+      else if (x < 360) { yw = E1[0]; pc = E1[1]; rl = E1[2]; }
+      else if (x < 700) { const k = ease((x - 360) / 340); yw = lerp(E1[0], IY, k); pc = lerp(E1[1], IP, k); rl = lerp(E1[2], IR, k); }
+      else { yw = IY; pc = IP; rl = IR; }
+      const kk = x < 300 ? 1 : .25; dispY += (yw - dispY) * Math.min(1, (s.t - (U._lt || s.t)) * 40 * kk + .02); dispP += (pc - dispP) * Math.min(1, (s.t - (U._lt || s.t)) * 40 * kk + .02); dispR += (rl - dispR) * Math.min(1, (s.t - (U._lt || s.t)) * 40 * kk + .02); U._lt = s.t; yw = dispY; pc = dispP; rl = dispR;
       const dt = Math.min(.05, Math.max(.001, s.t - pt)), ry = pt ? (yw - py) / dt : 0, rp = pt ? (pc - pp) / dt : 0; py = yw; pp = pc; pt = s.t;
       E.set(pc, yw, rl, 'YXZ'); g.rotation.order = 'YXZ'; g.rotation.set(pc, yw, rl); U.gripOff.copy(U.grip).applyEuler(E).sub(U.grip); U.foreOff.copy(U.fore).applyEuler(E).sub(U.fore);
       const dY = -ry * .045 - (s.lx || 0) * 5, dP = -rp * .04 + (s.ly || 0) * 4;   // the tip lags behind the swing and behind your look
@@ -1333,9 +1438,9 @@ function chainStep(g, dt, t) {
   for (const c of U.chains) {
     accStep(c.T, dt); const a = c.T.a, n = c.bones.length, fz = c.dir < 0 ? -a.x : a.x, fx = c.dir < 0 ? a.z : -a.z;
     for (let q = 0; q < ns; q++) for (let i = 0; i < n; i++) {
-      const b = c.bones[i], w = c.gain * (.5 + .5 * (i + 1) / n) / c.L, tt = t - (ns - 1 - q) * h, sw = Math.sin(tt * c.sf + c.ph + i * .7) * c.sa * c.k, sx = Math.cos(tt * c.sf * .8 + c.ph * 1.3 + i * .9) * c.sa * c.k * .7;
+      const b = c.bones[i], w = c.gain * .28 * (.5 + .5 * (i + 1) / n) / c.L, tt = t - (ns - 1 - q) * h, sw = Math.sin(tt * c.sf + c.ph + i * .7) * c.sa * .3 * c.k, sx = Math.cos(tt * c.sf * .8 + c.ph * 1.3 + i * .9) * c.sa * .3 * c.k * .7;
       b.wz += (-c.k * (b.z - b.cz) - c.c * b.wz + w * fz + sw) * h; b.wx += (-c.k * b.x - c.c * b.wx + w * fx + sx) * h;
-      b.z = clamp(b.z + b.wz * h, b.cz - c.max, b.cz + c.max); b.x = clamp(b.x + b.wx * h, -c.max, c.max);
+      b.z = clamp(b.z + b.wz * h, b.cz - c.max * .5, b.cz + c.max * .5); b.x = clamp(b.x + b.wx * h, -c.max * .5, c.max * .5);
     }
     for (let i = 0; i < n; i++) { const b = c.bones[i]; b.g.rotation.set(b.x, 0, b.z); }
   }
@@ -1453,6 +1558,7 @@ function applyCos(g, eq) {                           // build whatever cosmetics
   (U.cx || []).forEach(o => o.parent && o.parent.remove(o)); U.cx = []; U.chains = []; U.anim = [];
   const suit = U.suit, brass = U.brass, H = U.hat, M = (geo, c, o) => new THREE.Mesh(geo, asMat(c, o)), A = (m, x, y, z, p = H) => put(m, x, y, z, p), SP = THREE.SphereGeometry;
   suit.map = ptex('noise', '#d9a24a'); suit.color.setHex(0xffffff); suit.emissive.setHex(0); brass.color.setHex(0xb87333); brass.emissive.setHex(0); U.gold = false;
+  { const CP = { green: ['#3b5e2b', 0x56803a], blue: ['#2f86d6', 0x2a6cb5], red: ['#d9412e', 0xb3281d] }[eq.color]; if (CP) { suit.map = ptex('noise', CP[0]); brass.color.setHex(CP[1]); } }
   if (eq.suit === 'scales') suit.map = ptex('scales', '#26b5a8');
   if (eq.suit === 'golden') { suit.map = ptex('noise', '#f4c430'); suit.emissive.setHex(0x6b4a00); brass.color.setHex(0xffd23f); brass.emissive.setHex(0x6b4a00); U.gold = true; }
   suit.needsUpdate = true;
@@ -1525,7 +1631,7 @@ function setViewmodel() {
   if (vm) C.remove(vm); const w = WP[cur]; vm = new THREE.Group(); gunVM = makeGun(cur); vm.add(gunVM);
   const U = gunVM.userData, glove = gm(0x15181c, { shininess: 30 }), sleeve = new THREE.MeshPhongMaterial({ map: ptex('noise', '#d9a24a') });
   const rig = rigHands(vm, gunVM, 1, _zero, [new THREE.Vector3(.38, -.5, .6), new THREE.Vector3(-.38, -.5, .6)], glove, sleeve, .095, .15, makeGauntlet(.52)); vm.userData.hand = rig.f; vm.userData.rig = rig; vm.userData.gaunt = rig.gaunt;   // both hands on the gun
-  vm.position.set(.26, -.26, -.55); C.add(vm); vm.traverse(o => o.layers.set(1)); $('wname').textContent = w.name; relPose = null;
+  vm.position.set(.26, -.26, -.55); vm.scale.setScalar(.74); C.add(vm); vm.traverse(o => o.layers.set(1)); $('wname').textContent = w.name; relPose = null;
 }
 const BLURB = { pistol: 'Steady all-rounder', puffer: 'Fast, fuzzy, close range', shotgun: 'Pearl burst, hits hard up close', seahorse: 'Scoped, 3 shots', noodle: 'Floppy melee, 2 slaps pop a diver, 1 s dash', crab: 'Quick 3-round bursts, 13 dmg each' };
 const menuGuns = () => Object.keys(WP).filter(k => !WP[k].pad);
@@ -1567,11 +1673,12 @@ function govText() {
   const r = gunRig(); if (r && !GI.ov) { GI.ov = r.domElement; $('govc').appendChild(GI.ov); } GI.ovId = '';
 }
 let _lgT = 0;
-function layoutGov() {                               // sit under the login box, centred in the left margin beside the diver, above the gun buttons
-  const g = $('gov'); if (!g || !inMenu || lockerOn || innerWidth <= 820 || innerHeight <= 600) return; const W = innerWidth, H = innerHeight, acc = $('macc').getBoundingClientRect(), gu = $('guns').getBoundingClientRect();
-  const zone = Math.max(230, W / 2 - Math.min(H * .3, W * .17)), w = Math.round(clamp(W * .21, 210, 300)), left = Math.round(Math.max(12, (zone - w) / 2)), top = Math.round(Math.max(acc.bottom, 70) + 16);
-  g.style.left = left + 'px'; g.style.top = top + 'px'; g.style.width = w + 'px'; g.classList.remove('nos', 'nob');
-  if (top + g.offsetHeight > gu.top - 8) g.classList.add('nos'); if (top + g.offsetHeight > gu.top - 8) g.classList.add('nob');
+function layoutGov() {                               // overview gun: bigger, lower, centred in the free left space, scale aware
+  const g = $('gov'); if (!g || !inMenu || lockerOn || innerWidth <= 820 || innerHeight <= 600) return; const W = innerWidth, H = innerHeight, k = guiK(), acc = $('macc').getBoundingClientRect(), gu = $('guns').getBoundingClientRect();
+  const zone = Math.max(260, W / 2 - Math.min(H * .3, W * .17)), w = Math.round(clamp(W * .26, 250, 380) / k), left = Math.max(12, (zone - w * k) / 2), top0 = Math.max(acc.bottom, 70) + 14, room = gu.top - 10 - top0;
+  g.style.width = w + 'px'; g.style.transform = `scale(${k})`; g.style.transformOrigin = '0 0'; g.classList.remove('nos', 'nob'); g.style.left = left + 'px';
+  let hh = g.offsetHeight * k; if (hh > room) { g.classList.add('nos'); hh = g.offsetHeight * k; } if (hh > room) { g.classList.add('nob'); hh = g.offsetHeight * k; }
+  g.style.top = Math.round(Math.max(top0, top0 + (room - hh) * .6)) + 'px';
 }
 addEventListener('resize', () => { _lgT = 0; });
 function govStep(dt) {
@@ -1644,13 +1751,65 @@ function sfxAch() { if (!AC) return; const o = out(null, .8); [660, 880, 1320].f
 // ---------- hit feedback: crosshair X, floating damage numbers, kill streak call-outs ----------
 function hitMark(head, kill) { const e = $('hit'); e.className = ''; void e.offsetWidth; e.style.setProperty('--hc', kill ? '#ff3b3b' : head ? '#ff9a3b' : '#ffffff'); e.style.setProperty('--hs', kill ? 1.6 : head ? 1.25 : 1); e.className = 'pop'; }
 const dmgN = []; let dmgP = null;
-function addDmg(m) { if (!GFX.dmg) return; const now = performance.now(); if (dmgP && now - dmgP.t < 70 && Math.hypot(m.at[0] - dmgP.at[0], m.at[2] - dmgP.at[2]) < 1.3) { dmgP.sum += m.dmg; dmgP.head = dmgP.head || !!m.head; dmgP.kill = dmgP.kill || !!m.kill; return; } flushDmg(); dmgP = { t: now, at: m.at.slice(), sum: m.dmg, head: !!m.head, kill: !!m.kill }; }   // shotgun pellets in one blast add up to one number
+function addDmg(m) { if (!GFX.dmg) return; const now = performance.now(); if (m.kill) lastDmgAt = { t: now, at: m.at.slice() }; if (dmgP && now - dmgP.t < 70 && Math.hypot(m.at[0] - dmgP.at[0], m.at[2] - dmgP.at[2]) < 1.3) { dmgP.sum += m.dmg; dmgP.head = dmgP.head || !!m.head; dmgP.kill = dmgP.kill || !!m.kill; return; } flushDmg(); dmgP = { t: now, at: m.at.slice(), sum: m.dmg, head: !!m.head, kill: !!m.kill }; }   // shotgun pellets in one blast add up to one number
 function flushDmg() {
   if (!dmgP) return; const d = dmgP; dmgP = null; const el = document.createElement('div'); el.className = 'dn' + (d.kill ? ' kl' : d.head ? ' hs' : ''); el.textContent = d.sum; $('dmgs').appendChild(el);
   dmgN.push({ el, x: d.at[0] + rnd(-.35, .35), y: d.at[1] + .5, z: d.at[2] + rnd(-.35, .35), vx: rnd(-.9, .9), vz: rnd(-.9, .9), t0: performance.now() }); if (dmgN.length > 14) dmgN.shift().el.remove();
 }
+
+// ---------- quests: three dailies under the leaderboard, and a MORE page with everything from easy to a long grind ----------
+let QS = null, lastDmgAt = null;
+function fmtT(sec) { const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60); return h ? h + 'h ' + m + 'm' : m + 'm'; }
+function qHtml(q, big) {
+  const pc = Math.min(100, Math.round(q.p / q.goal * 100)), un = (q.unlock && q.unlock.length) ? `<small class="ul">Unlocks: ${esc(q.unlock.join(', '))}</small>` : '';
+  const sh = v => q.secs ? fmtT(v) : v;
+  return `<div class="qi${q.done ? ' done' : ''}"><b><span>${esc(q.name)}</span><em>+${q.xp} XP</em></b>${big ? `<small>${esc(q.desc)}</small>` : ''}<i><u style="width:${pc}%"></u></i><small>${q.done ? 'Complete!' : sh(Math.min(q.p, q.goal)) + ' / ' + sh(q.goal)}</small>${un}</div>`;
+}
+function renderQuests() {
+  if (!QS) { if ($('qdl')) $('qdl').innerHTML = guest ? '<div class="qi"><small>Log in to track quests.</small></div>' : '<div class="qi"><small>Loading…</small></div>'; return; }
+  if ($('qdl')) $('qdl').innerHTML = QS.daily.map(q => qHtml(q, false)).join('');
+  if ($('questp').style.display !== 'none') {
+    $('qresets').textContent = 'Daily quests reset in ' + fmtT(Math.max(60, QS.resetIn - (performance.now() - (QS.at || 0)) / 1000));
+    $('qlist').innerHTML = '<h4>Daily Quests</h4>' + QS.daily.map(q => qHtml(q, true)).join('') + '<h4>More Quests &middot; easy to endless</h4>' + QS.more.map(q => qHtml(q, true)).join('');
+  }
+}
+function openQuests() { if (!acct) { feed('Log in to track quests'); return; } try { initAudio(); } catch (e) {} openPnl('questp'); if (QS) renderQuests(); wsSend({ t: 'qreq' }); }
+function wsSend(o) { try { if (ws && ws.readyState === 1) ws.send(JSON.stringify(o)); } catch (e) {} }
+$('qmore').onclick = $('qbtn').onclick = e => { e.stopPropagation(); openQuests(); }; $('qx').onclick = closePnl;
+function setQuests(m) { QS = m; QS.at = performance.now(); renderQuests(); }
+function questToast(m) {
+  const d = document.createElement('div'); d.className = 'toast'; d.innerHTML = `<b>${m.daily ? '&#9728; Daily quest' : '&#10004; Quest'} complete!</b><span>${esc(m.name)}</span><small>+${m.xp} XP${m.unlock && m.unlock.length ? ' &middot; unlocked ' + esc(m.unlock.join(', ')) : ''}</small>`;
+  $('toasts').appendChild(d); setTimeout(() => d.classList.add('out'), 4200); setTimeout(() => d.remove(), 4700); try { sfxAch(); } catch (e) {}
+}
+function xpPop(m) {
+  if (!GFX.xp || !GFX.dmg || !lastDmgAt || performance.now() - lastDmgAt.t > 900) { if (GFX.xp && m.n) feed('+' + m.n + ' XP'); return; }
+  const el = document.createElement('div'); el.className = 'dn xp'; el.textContent = '+' + m.n; $('dmgs').appendChild(el);
+  dmgN.push({ el, x: lastDmgAt.at[0] + .55, y: lastDmgAt.at[1] + .1, z: lastDmgAt.at[2], vx: .25, vz: 0, t0: performance.now() }); if (dmgN.length > 16) dmgN.shift().el.remove();
+}
+setInterval(() => { if (QS && $('questp').style.display !== 'none') renderQuests(); }, 20000);
+
+// ---------- Squid Launcher blast: a flash, two shock shells, a flat ring, a fireball of sparks, spinning ink streamers and bubbles; sized to the real 6.5 splash ----------
+const blasts = []; let blastGeo = null;
+function squidBlast(e) {
+  const q = GFX.parts / 100, [x, y, z] = e, R = 6.5; if (!blastGeo) blastGeo = { s: new THREE.SphereGeometry(1, 20, 14), r: new THREE.RingGeometry(.82, 1, 40) };
+  const mk = (geo, col, op, flat) => { const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: op, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, fog: false })); m.position.set(x, y, z); if (flat) m.rotation.x = -Math.PI / 2; m.renderOrder = 7; S.add(m); return m; };
+  blasts.push({ m: mk(blastGeo.s, 0xfff2b0, .95), t0: performance.now(), life: 260, r0: .5, r1: R * .55, op: .95 });   // white-hot core flash
+  blasts.push({ m: mk(blastGeo.s, 0xc06af0, .5), t0: performance.now(), life: 520, r0: .8, r1: R, op: .5 });          // violet shock shell out to the splash radius
+  blasts.push({ m: mk(blastGeo.s, 0x5fd8ff, .3), t0: performance.now() + 80, life: 640, r0: .8, r1: R * 1.12, op: .3 });
+  blasts.push({ m: mk(blastGeo.r, 0xff9a3c, .8, true), t0: performance.now(), life: 600, r0: 1, r1: R * 1.15, op: .8 });   // flat ring racing across the water
+  const warm = [0xfff1a8, 0xffc23c, 0xff7a2c, 0xff4fa0], cool = [0xc06af0, 0x7a6df0, 0x5fd8ff];
+  for (let i = 0; i < Math.round(110 * q); i++) { const a = rnd(0, 6.283), b = Math.acos(rnd(-1, 1)), v = rnd(5, 17); dust(x, y, z, rnd(.14, .42), warm[i % 4], Math.sin(b) * Math.cos(a) * v, Math.cos(b) * v, Math.sin(b) * Math.sin(a) * v, rnd(.5, 1.1), -1, -40); }   // fireball sparks
+  for (let i = 0; i < Math.round(70 * q); i++) { const a = rnd(0, 6.283), b = Math.acos(rnd(-1, 1)), v = rnd(2, 9); dust(x, y, z, rnd(.25, .7), cool[i % 3], Math.sin(b) * Math.cos(a) * v, Math.cos(b) * v * .8, Math.sin(b) * Math.sin(a) * v, rnd(.9, 1.7), -2, -40); }   // slow glowing ink cloud
+  for (let k = 0; k < 4; k++) for (let i = 0; i < Math.round(14 * q); i++) { const a = i / 14 * 6.283 + k * .45, v = 7 + k * 3.4; dust(x, y + (k - 1.5) * .4, z, .2, k % 2 ? 0xffd23f : 0xff6bb0, Math.cos(a) * v, rnd(-.6, .6), Math.sin(a) * v, .75, 0, -40); }   // four spinning streamer rings
+  for (let i = 0; i < Math.round(46 * q); i++) bubble(x + rnd(-R * .5, R * .5), y + rnd(-R * .4, R * .4), z + rnd(-R * .5, R * .5), rnd(.15, .6), 0, rnd(2, 5));
+  const dd = Math.hypot(C.position.x - x, C.position.y - y, C.position.z - z); shake = Math.max(shake, Math.max(0, 1 - dd / 22) * 1.1);
+}
+function blastStep(now) {
+  for (let i = blasts.length - 1; i >= 0; i--) { const b = blasts[i], k = (now - b.t0) / b.life; if (k < 0) { b.m.visible = false; continue; } b.m.visible = true; if (k >= 1) { S.remove(b.m); b.m.material.dispose(); blasts.splice(i, 1); continue; } const e = 1 - Math.pow(1 - k, 3); b.m.scale.setScalar(b.r0 + (b.r1 - b.r0) * e); b.m.material.opacity = b.op * (1 - k) * (1 - k); }
+}
 const _dv = new THREE.Vector3();
 function dmgStep(now) {
+  blastStep(now); if (!HP.drag && $('anch').style.display === 'block') anchorFx(false);
   if (dmgP && now - dmgP.t >= 70) flushDmg();
   for (let i = dmgN.length - 1; i >= 0; i--) {
     const n = dmgN[i], a = (now - n.t0) / 1000; if (a > .95 || dead || inMenu) { n.el.remove(); dmgN.splice(i, 1); continue; }
@@ -2181,11 +2340,16 @@ function harpStep(dt, dry) {                          // rope physics: the hook 
   mySpeed = Math.max(mySpeed, Math.hypot(dvx, dvz));
   if (a.L <= HARP.minL + .05 && sp < 6) harpRelease();
 }
+function anchorFx(on, by) {                              // show the spear that has gone through you: its head pokes out of the screen with the rope running back to the diver who threw it
+  const el = $('anch'); if (!el) return; if (!on) { el.style.display = 'none'; return; } el.style.display = 'block';
+  const v = _hv3.set(by.g.position.x, by.g.position.y + 1.1, by.g.position.z).project(C); let dx = v.x, dy = -v.y; if (v.z > 1) { dx = -dx; dy = -dy; } if (Math.abs(dx) + Math.abs(dy) < .05) { dx = 0; dy = -1; }
+  const ang = Math.atan2(dy * innerHeight, dx * innerWidth) * 180 / Math.PI; el.querySelector('.rp').style.transform = `rotate(${ang.toFixed(1)}deg)`; $('anh').setAttribute('transform', `translate(50 50) rotate(${(ang + 90).toFixed(1)}) scale(${(1 + .04 * Math.sin(performance.now() / 90)).toFixed(3)})`);
+}
 function dragStep(dt) {                               // a harpooned diver is hauled toward whoever hooked him
   const D = HP.drag, by = players.get(D.by);
-  if (performance.now() > D.until || !by || dead) { HP.drag = null; HP.flingT = .7; return; }
+  if (performance.now() > D.until || !by || dead) { HP.drag = null; HP.flingT = .7; anchorFx(false); return; } anchorFx(true, by);
   _hv.set(by.g.position.x, by.g.position.y + 1.1, by.g.position.z).sub(_hv2.set(pos.x, pos.y + 1.1, pos.z)); const d = _hv.length();
-  if (d < 2.4) { HP.drag = null; HP.flingT = .7; return; } _hv.divideScalar(d); const k = Math.min(1, 10 * dt);
+  if (d < 2.4) { HP.drag = null; HP.flingT = .7; anchorFx(false); return; } _hv.divideScalar(d); const k = Math.min(1, 10 * dt);
   dvx += (_hv.x * 26 - dvx) * k; dvz += (_hv.z * 26 - dvz) * k; vy += (_hv.y * 26 - vy) * k; mySpeed = Math.max(mySpeed, 20);
 }
 // ---------- network ----------
@@ -2324,7 +2488,7 @@ function onPop(m) {
   const outside = outsideXZ(m.e[0], m.e[2]) || m.e[1] > AR.h + .5;
   const s = sq.get(m.pid); if (s) { S.remove(s.g); sq.delete(m.pid); }
   if (outside) { sfxPop(m.e); sfxSlime(m.e, 1); inkSplat(m.e[0], CURMAP.id !== 'kitchen' && m.e[1] > -5 ? -.03 : AR.round && onIsland(m.e[0], m.e[2]) && m.e[1] > -5 ? -.01 : FLOORY + .09, m.e[2]); for (let i = 0; i < 10; i++) dust(m.e[0] + rnd(-1, 1), m.e[1] + .3, m.e[2] + rnd(-1, 1), rnd(.25, .5), 0x2a1448, rnd(-5, 5), rnd(2, 6), rnd(-5, 5), .7, 26, m.e[1] - .1); return; }   // droplets fall, nothing floats up
-  sfxPop(m.e); for (let i = 0; i < 14; i++) ink(m.e[0] + rnd(-1.8, 1.8), m.e[1] + rnd(-1.8, 1.8), m.e[2] + rnd(-1.8, 1.8), rnd(.8, 1.5));
+  sfxPop(m.e); squidBlast(m.e); for (let i = 0; i < 22; i++) ink(m.e[0] + rnd(-3, 3), m.e[1] + rnd(-3, 3), m.e[2] + rnd(-3, 3), rnd(1, 2.2));
   for (let i = 0; i < 36; i++) bubble(m.e[0] + rnd(-1.8, 1.8), m.e[1] + rnd(-1.8, 1.8), m.e[2] + rnd(-1.8, 1.8), rnd(.15, .4), 0, rnd(1, 3));
 }
 function onBurst(p) {                              // a diver was popped: a big spray of tiny bubbles and a fizzy mist sound
@@ -2377,7 +2541,7 @@ function renderAcct() {
   $('name').style.display = guest && !acct ? 'block' : 'none';
   const ok = !!(ws && ws.readyState === 1 && WP[cur]); $('play').disabled = !(ok && (acct || guest)); $('play').textContent = !ok ? 'Connecting…' : acct || guest ? 'Dive in!' : 'Log in to dive';
 }
-function setProg(m) { const up = acct && m.level > acct.level; acct = Object.assign(acct || {}, { xp: m.xp, eq: m.eq || {}, level: m.level, into: m.into, need: m.need, ach: m.ach || (acct && acct.ach) || [], st: m.st || (acct && acct.st) || {} }); if (up) feed('LEVEL UP! You are now level ' + m.level); renderAcct(); if (lockerOn) renderLocker(); }
+function setProg(m) { const up = acct && m.level > acct.level; acct = Object.assign(acct || {}, { xp: m.xp, eq: m.eq || {}, level: m.level, into: m.into, need: m.need, ach: m.ach || (acct && acct.ach) || [], st: m.st || (acct && acct.st) || {}, qd: m.qd || (acct && acct.qd) || {} }); if (up) feed('LEVEL UP! You are now level ' + m.level); renderAcct(); if (lockerOn) renderLocker(); }
 
 // ---------- Locker: every cosmetic card shows a small turning 3D preview of the real thing (hair and capes swing as it bobs) ----------
 const CI = { r: null, s: null, c: null, cache: {}, rr: 0, last: {} }, LKC = [];
@@ -2395,7 +2559,7 @@ function ciDiver(c) {
   return g;
 }
 function lockIcons(dt, t) {
-  if (!lockerOn || lkTab !== 'cos' || !LKC.length) return; const r = ciRig(); if (!r) return; const now = performance.now(); let done = 0, tries = 0;
+  if (!lockerOn || !LKC.length) return; const r = ciRig(); if (!r) return; const now = performance.now(); let done = 0, tries = 0;
   while (done < 4 && tries < LKC.length) {
     const it = LKC[CI.rr++ % LKC.length]; tries++; const rc = it.cv.getBoundingClientRect(); if (rc.bottom < 0 || rc.top > innerHeight) continue; done++;
     const c = it.c, g = ciDiver(c), U = g.userData, dtc = Math.min(.12, (now - (CI.last[c.id] || now - 16)) / 1000); CI.last[c.id] = now;
@@ -2407,17 +2571,38 @@ function lockIcons(dt, t) {
     r.render(CI.s, cam); const x = it.cv.getContext('2d'); x.clearRect(0, 0, it.cv.width, it.cv.height); x.drawImage(r.domElement, 0, 0, 160, 160, 0, 0, it.cv.width, it.cv.height);
   }
 }
+const LSEC = [
+  ['color', 'Colors', '<circle cx="12" cy="12" r="9" fill="currentColor" opacity=".35"/><circle cx="8.5" cy="9" r="2.4" fill="currentColor"/><circle cx="15" cy="8.5" r="2.4" fill="currentColor"/><circle cx="15.5" cy="14.5" r="2.4" fill="currentColor"/>'],
+  ['hat', 'Hats', '<path d="M3 17h18v2H3zM6 17c0-6 2-10 6-10s6 4 6 10z" fill="currentColor"/>'],
+  ['face', 'Face', '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.4" fill="currentColor"/><circle cx="15" cy="10" r="1.4" fill="currentColor"/><path d="M8 15c2 2 6 2 8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'],
+  ['hair', 'Hair', '<path d="M4 14c0-6 3-10 8-10s8 4 8 10c-2-3-4-5-8-5s-6 2-8 5z" fill="currentColor"/><path d="M5 15v4M19 15v4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'],
+  ['paint', 'Paint', '<path d="M12 3c4 5 7 8 7 12a7 7 0 0 1-14 0c0-4 3-7 7-12z" fill="currentColor"/>'],
+  ['suit', 'Suits', '<path d="M8 3l4 2 4-2 5 4-3 4-2-1v11H8V10l-2 1-3-4z" fill="currentColor"/>'],
+  ['back', 'Back', '<rect x="6" y="5" width="12" height="16" rx="4" fill="currentColor"/><rect x="9" y="11" width="6" height="5" rx="1" fill="#0a4a5c"/>'],
+  ['trail', 'Trails', '<circle cx="6" cy="17" r="3" fill="currentColor"/><circle cx="13" cy="11" r="2.4" fill="currentColor"/><circle cx="18" cy="6" r="1.8" fill="currentColor"/>'],
+  null,
+  ['emo', 'Emotes', '<path d="M12 21c-5-4-8-7-8-11a4.5 4.5 0 0 1 8-2.6A4.5 4.5 0 0 1 20 10c0 4-3 7-8 11z" fill="currentColor"/>'],
+  ['ach', 'Awards', '<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z" fill="currentColor"/>']];
+const COLNAMES = { brass: ['Brass', '#d9a24a'], green: ['Algae', '#3b5e2b'], blue: ['Blue', '#2f86d6'], red: ['Red', '#d9412e'] };
+lkTab = 'color';
+function secBar() {
+  $('lksec').innerHTML = LSEC.map(x => x ? `<button data-tab="${x[0]}" class="${x[0] === lkTab ? 'on' : ''}" title="${x[1]}"><svg viewBox="0 0 24 24">${x[2]}</svg>${x[1]}</button>` : '<hr>').join('');
+}
+$('lksec').addEventListener('click', e => { const b = e.target.closest && e.target.closest('button'); if (!b || !b.dataset.tab) return; lkTab = b.dataset.tab; $('lkmain').scrollTop = 0; renderLocker(); });
+function lockText(c) { if (!c.quest) return 'Locked: level ' + c.lvl; const q = QS && [...QS.daily, ...QS.more].find(x => x.id === c.quest); return 'Quest: ' + (q ? q.name : 'finish a quest'); }
 function renderLocker() {
-  const lv = acct ? acct.level : 0, eq = acct ? acct.eq || {} : {};
-  $('lvl').innerHTML = acct ? `<b>${esc(acct.user)}</b> &middot; Level ${lv} &middot; every kill earns XP, and each level takes more XP than the last. Cosmetics unlock as you level.` : 'Log in to earn XP and unlock cosmetics and emotes. Guests only get the Wave.';
-  $('cosg').innerHTML = ''; LKC.length = 0;
-  $('cosg').style.display = lkTab === 'cos' ? 'grid' : 'none'; $('emog').style.display = lkTab === 'emo' ? 'grid' : 'none'; $('achg').style.display = lkTab === 'ach' ? 'grid' : 'none';
-  const got = new Set(acct && acct.ach || []), stt = acct && acct.st || {};
-  $('achg').innerHTML = acct ? ACHS.map(A => { const ok = got.has(A.id), v = Math.min(A.goal, stt[A.stat] || 0); return `<div class="cos ach${ok ? ' done' : ' lock'}"><div class="ic">${ok ? '&#9733;' : '&#9734;'}</div><div>${esc(A.name)}</div><small>${esc(A.desc)}</small><small>${ok ? 'Done! +' + A.xp + ' XP' : v + ' / ' + A.goal + ' &middot; +' + A.xp + ' XP'}</small></div>`; }).join('') + `<div class="achn">${got.size} / ${ACHS.length} achievements</div>` : '<div class="achn">Log in to earn achievements.</div>';
-  $('emog').innerHTML = ''; EMO.forEach(e => { const open = lv >= e.lvl, d = document.createElement('div'); d.className = 'cos' + (open ? '' : ' lock'); d.innerHTML = `<div class="ic">emote</div><div>${esc(e.name)}</div><small>${open ? 'Unlocked' : 'Locked: level ' + e.lvl}</small><small>Click to preview</small>`; d.onclick = () => { if (PV) startEmote(PV, e.id); }; $('emog').appendChild(d); });
-  [...COS].sort((a, b) => a.lvl - b.lvl).forEach(c => {
-    const open = lv >= c.lvl, on = eq[c.slot] === c.id, d = document.createElement('div'); d.className = 'cos' + (open ? '' : ' lock') + (on ? ' eq' : '');
-    d.innerHTML = `<canvas class="cic" width="160" height="160"></canvas><div>${esc(c.name)}</div><small>${c.slot}</small><small>${on ? 'Equipped' : open ? 'Unlocked' : 'Locked: level ' + c.lvl}</small>`; LKC.push({ cv: d.querySelector('canvas'), c });
+  const lv = acct ? acct.level : 0, eq = acct ? acct.eq || {} : {}, qd = acct && acct.qd || {};
+  const isOpen = c => c.quest ? !!qd[c.quest] : lv >= (c.lvl || 0);
+  $('lvl').innerHTML = acct ? `<b>${esc(acct.user)}</b> &middot; Level ${lv} &middot; some items unlock by level, some by finishing quests` : 'Log in to earn XP and unlock cosmetics and emotes. Guests only get the Wave.';
+  secBar(); $('cosg').innerHTML = ''; LKC.length = 0;
+  const cosOn = lkTab !== 'emo' && lkTab !== 'ach'; $('cosg').style.display = cosOn ? 'grid' : 'none'; $('emog').style.display = lkTab === 'emo' ? 'grid' : 'none'; $('achg').style.display = lkTab === 'ach' ? 'grid' : 'none';
+  if (lkTab === 'ach') { const got = new Set(acct && acct.ach || []), stt = acct && acct.st || {};
+    $('achg').innerHTML = acct ? ACHS.map(A => { const ok = got.has(A.id), v = Math.min(A.goal, stt[A.stat] || 0); return `<div class="cos ach${ok ? ' done' : ' lock'}"><div class="ic">${ok ? '&#9733;' : '&#9734;'}</div><div>${esc(A.name)}</div><small>${esc(A.desc)}</small><small>${ok ? 'Done! +' + A.xp + ' XP' : v + ' / ' + A.goal + ' &middot; +' + A.xp + ' XP'}</small></div>`; }).join('') + `<div class="achn">${got.size} / ${ACHS.length} achievements</div>` : '<div class="achn">Log in to earn achievements.</div>'; }
+  if (lkTab === 'emo') { $('emog').innerHTML = ''; EMO.forEach(e => { const open = lv >= e.lvl, d = document.createElement('div'); d.className = 'cos' + (open ? '' : ' lock'); d.innerHTML = `<div class="ic">emote</div><div>${esc(e.name)}</div><small>${open ? 'Unlocked' : 'Locked: level ' + e.lvl}</small><small>Click to preview</small>`; d.onclick = () => { if (PV) startEmote(PV, e.id); }; $('emog').appendChild(d); }); }
+  if (lkTab === 'color') Object.keys(COLNAMES).forEach(id => { const on = (eq.color || 'brass') === id, d = document.createElement('div'); d.className = 'cos' + (on ? ' eq' : ''); d.innerHTML = `<div class="sw" style="background:${COLNAMES[id][1]}"></div><div>${COLNAMES[id][0]}</div><small>${on ? 'Equipped' : 'Unlocked'}</small>`; d.onclick = () => { if (!acct) { feed('Log in to save your colour'); return; } ws.send(JSON.stringify({ t: 'equip', slot: 'color', id })); }; $('cosg').appendChild(d); });
+  else if (cosOn) [...COS].filter(c => c.slot === lkTab).sort((a, b) => (a.quest ? 1 : 0) - (b.quest ? 1 : 0) || a.lvl - b.lvl).forEach(c => {
+    const open = isOpen(c), on = eq[c.slot] === c.id, d = document.createElement('div'); d.className = 'cos' + (open ? '' : ' lock') + (on ? ' eq' : '');
+    d.innerHTML = `<canvas class="cic" width="160" height="160"></canvas><div>${esc(c.name)}</div><small class="${open || !c.quest ? '' : 'qn'}">${on ? 'Equipped' : open ? 'Unlocked' : lockText(c)}</small>`; LKC.push({ cv: d.querySelector('canvas'), c });
     if (open) d.onclick = () => ws.send(JSON.stringify({ t: 'equip', slot: c.slot, id: on ? null : c.id })); $('cosg').appendChild(d);
   });
   refreshPreview();
@@ -2446,7 +2631,7 @@ function menuShoot(el) {
   el.classList.remove('hitj'); void el.offsetWidth; el.classList.add('hitj'); setTimeout(() => el.classList.remove('hitj'), 320);
 }
 document.addEventListener('pointerdown', e => { if (!inMenu || lockerOn || e.target.closest('#settings,#admin')) return; const b = e.target.closest('#menu .btn, #menu .gun'); if (b && b.id !== 'play') menuShoot(b); }, true);
-function spaceDive(e) { if (e.code !== 'Space' || !inMenu || lockerOn || spec.on) return false; const t = e.target, tn = t && t.tagName; if (tn === 'INPUT' || tn === 'TEXTAREA' || tn === 'SELECT') return false; if (['setp', 'ctlp', 'admp'].some(id => $(id) && $(id).style.display && $(id).style.display !== 'none')) return false; if ($('mend') && $('mend').style.display === 'grid') return false; e.preventDefault(); return true; }
+function spaceDive(e) { if (e.code !== 'Space' || !inMenu || lockerOn || spec.on) return false; const t = e.target, tn = t && t.tagName; if (tn === 'INPUT' || tn === 'TEXTAREA' || tn === 'SELECT') return false; if (['setp', 'admp'].some(id => $(id) && $(id).style.display && $(id).style.display !== 'none')) return false; if ($('mend') && $('mend').style.display === 'grid') return false; e.preventDefault(); return true; }
 addEventListener('keydown', e => { if (e.repeat) { spaceDive(e); return; } if (spaceDive(e)) { const b = $('play'); if (!b.disabled) b.click(); } }, true);
 addEventListener('keyup', e => { if (e.code === 'Space' && inMenu) e.preventDefault(); }, true);
 function menuTracerStep(dt) { for (let i = MENU.trs.length - 1; i >= 0; i--) { const q = MENU.trs[i]; q.age += dt; const k = q.age / .22; if (k >= 1) { PS.remove(q.m); PS.remove(q.fl); MENU.trs.splice(i, 1); continue; } q.m.material.opacity = .95 * (1 - k); q.fl.material.opacity = .95 * (1 - k); q.fl.scale.setScalar(1 + k * 1.6); } }
@@ -2460,7 +2645,6 @@ function refreshPreview() {
 function openLocker() { lockerOn = true; $('menu').classList.add('lk'); $('locker').style.display = 'block'; renderLocker(); }
 function closeLocker() { lockerOn = false; $('menu').classList.remove('lk'); $('locker').style.display = 'none'; }
 $('lockbtn').onclick = openLocker; $('lkback').onclick = closeLocker;
-[...$('lktabs').children].forEach(b => b.onclick = () => { lkTab = b.dataset.tab; [...$('lktabs').children].forEach(x => x.classList.toggle('on', x === b)); renderLocker(); });
 $('setmenu').onclick = e => $('setb').onclick(e);
 
 // ---------- glass cracks, the broken tank and the drain ----------
@@ -2577,7 +2761,7 @@ function startRefill() {
 function updateWater(dt, t) {
   if (!surfM) return; if (Math.abs(wl - wlT) > .0005) wl += clamp(wlT - wl, -dt / DRAIN_S, dt / REFILL_S); else wl = wlT;
   const lvl = wl * AR.h; waterM.scale.y = Math.max(.001, lvl); waterM.visible = wl > .01; surfM.position.y = lvl; surfM.visible = wl > .01;
-  const dry = 1 - wl; S.fog.near = 3 + dry * dry * 70; S.fog.far = 62 * fogK + dry * dry * 1500;
+  const dry = 1 - wl; S.fog.near = 3 + dry * dry * 70; S.fog.far = 62 * fogK * GFX.haze / 100 + dry * dry * 1500;
   const wetV = !(drained && wl < .5); if (motes) { motes.visible = wetV; if (wetV) { const pa = motes.geometry.attributes.position; for (let i = 0; i < pa.count; i++) { pa.setY(i, pa.getY(i) + (.25 + (i % 5) * .08) * dt); pa.setX(i, pa.getX(i) + Math.sin(t * .6 + i) * .25 * dt); if (pa.getY(i) > wl * AR.h) pa.setY(i, 1); } pa.needsUpdate = true; } }
   shafts.forEach((m, i) => { m.visible = wetV; m.material.opacity = .035 + .03 * Math.sin(t * .5 + i * 1.7); m.rotation.z = .2 + Math.sin(t * .3 + i) * .06; }); geyPlumes.forEach(m => m.visible = wetV);
   const wo = (Math.round(wl * 20) / 20) + ''; if (wo !== lastWO) { lastWO = wo; const el = $('wtr'); if (el) el.style.opacity = wo; }
@@ -2699,23 +2883,68 @@ function animKid(K, t, dt) {                         // timeline: 0-1.5 s door s
 // ---------- settings (volumes) and the admin panel ----------
 let isAdmin = false, admList = [], admTimer = 0;
 const openPnl = id => { try { document.exitPointerLock(); } catch (e) {} $(id).style.display = 'grid'; };
-function closePnl() { $('setp').style.display = 'none'; $('ctlp').style.display = 'none'; $('admp').style.display = 'none'; clearInterval(admTimer); }
+function closePnl() { $('setp').style.display = 'none'; $('questp').style.display = 'none'; $('admp').style.display = 'none'; clearInterval(admTimer); }
 // ---------- graphics settings (saved in localStorage) ----------
-const GFX = { q: 'high', scale: 100, fov: 75, shake: 100, bob: 100, parts: 100, dir: true, vig: true, fps: false, dmg: true }; try { Object.assign(GFX, JSON.parse(localStorage.getItem('ftGfx') || '{}')); } catch (e) {}
+const GFX = { q: 'high', scale: 100, fov: 75, shake: 100, bob: 100, parts: 100, dir: true, vig: true, fps: false, dmg: true, gui: 100, bright: 100, contrast: 100, sat: 100, haze: 100, anim: true, xp: true, hc: false, padsens: 100, padinv: false }; try { Object.assign(GFX, JSON.parse(localStorage.getItem('ftGfx') || '{}')); } catch (e) {}
 const GPRE = { low: { scale: 60, parts: 30, shake: 50 }, med: { scale: 80, parts: 60, shake: 80 }, high: { scale: 100, parts: 100, shake: 100 } };
 function applyGfx() {
   pr = Math.max(.4, Math.min(devicePixelRatio, 1.5) * GFX.scale / 100); R.setPixelRatio(pr); $('fps').style.display = GFX.fps ? 'block' : 'none';
   [...$('g_q').children].forEach(b => b.classList.toggle('on', b.dataset.q === GFX.q)); setHpVig(me && me.hp !== undefined ? me.hp : 100);
+  { const f = GFX.bright === 100 && GFX.contrast === 100 && GFX.sat === 100 ? '' : `brightness(${GFX.bright / 100}) contrast(${GFX.contrast / 100}) saturate(${GFX.sat / 100})`; R.domElement.style.filter = f; }
+  document.body.classList.toggle('hc', !!GFX.hc); document.body.classList.toggle('noanim', !GFX.anim); applyGui();
   try { localStorage.setItem('ftGfx', JSON.stringify(GFX)); } catch (e) {}
 }
-[['scale', 'g_scale'], ['fov', 'g_fov'], ['shake', 'g_shake'], ['bob', 'g_bob'], ['parts', 'g_parts']].forEach(([k, id]) => { const el = $(id); el.value = GFX[k]; el.oninput = () => { GFX[k] = +el.value; GFX.q = 'custom'; applyGfx(); }; });
-[['dir', 'g_dir'], ['vig', 'g_vig'], ['dmg', 'g_dmg'], ['fps', 'g_fps']].forEach(([k, id]) => { const el = $(id); el.checked = !!GFX[k]; el.onchange = () => { GFX[k] = el.checked; applyGfx(); }; });
+function guiCap() { return clamp(Math.min(innerWidth / 760, innerHeight / 520), .6, 1.3); }   // the biggest scale this window can hold without things landing on top of each other
+function guiK() { return Math.min(GFX.gui / 100, guiCap()); }
+function applyGui() {
+  const k = guiK(); document.documentElement.style.setProperty('--gs', k.toFixed(3)); const o = $('g_guio'), n = $('g_guin'); if (o) o.textContent = Math.round(GFX.gui) + '%';
+  if (n) n.textContent = k + .005 < GFX.gui / 100 ? 'This window is only big enough for ' + Math.round(k * 100) + '% right now, so that is what you are seeing.' : '';
+  _lgT = 0;
+}
+addEventListener('resize', applyGui);
+[['scale', 'g_scale'], ['fov', 'g_fov'], ['shake', 'g_shake'], ['bob', 'g_bob'], ['parts', 'g_parts'], ['bright', 'g_bright'], ['contrast', 'g_contrast'], ['sat', 'g_sat'], ['haze', 'g_haze'], ['gui', 'g_gui'], ['padsens', 'g_padsens']].forEach(([k, id]) => { const el = $(id); el.value = GFX[k]; el.oninput = () => { GFX[k] = +el.value; GFX.q = 'custom'; applyGfx(); }; });
+[['dir', 'g_dir'], ['vig', 'g_vig'], ['dmg', 'g_dmg'], ['fps', 'g_fps'], ['anim', 'g_anim'], ['xp', 'g_xp'], ['hc', 'g_hc'], ['padinv', 'g_padinv']].forEach(([k, id]) => { const el = $(id); el.checked = !!GFX[k]; el.onchange = () => { GFX[k] = el.checked; applyGfx(); }; });
 [...$('g_q').children].forEach(b => b.onclick = () => { const p = GPRE[b.dataset.q]; Object.assign(GFX, p, { q: b.dataset.q }); ['scale', 'shake', 'parts'].forEach(k => { $('g_' + k).value = GFX[k]; }); applyGfx(); });
 $('g_full').onclick = () => { try { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); } catch (e) {} };
-[...$('setab').children].forEach(b => b.onclick = () => { [...$('setab').children].forEach(x => x.classList.toggle('on', x === b)); $('st_snd').style.display = b.dataset.t === 'snd' ? 'block' : 'none'; $('st_gfx').style.display = b.dataset.t === 'gfx' ? 'block' : 'none'; });
+$('g_pic0').onclick = () => { Object.assign(GFX, { bright: 100, contrast: 100, sat: 100, haze: 100 }); ['bright', 'contrast', 'sat', 'haze'].forEach(k => { $('g_' + k).value = 100; }); applyGfx(); };
+const SETT = ['snd', 'gfx', 'ui', 'ret', 'ctl']; function setTab(t) { [...$('setab').children].forEach(x => x.classList.toggle('on', x.dataset.t === t)); SETT.forEach(k => { $('st_' + k).style.display = k === t ? 'block' : 'none'; }); $('setbody').scrollTop = 0; if (t === 'ret') retPrev(); }
+[...$('setab').children].forEach(b => b.onclick = () => setTab(b.dataset.t));
+{ const hs = $('st_ctl').querySelectorAll('h4'); if (hs[0]) hs[0].className = 'kbh'; if (hs[1]) hs[1].className = 'tth'; }
+
+// ---------- reticle: four shapes, your own colours, and it opens up to match the real spread of the gun ----------
+const RET = { shape: 'cross', color: '#ffffff', ocol: '#000000', size: 100, thick: 3, gap: 4, alpha: 95, dot: false, outl: true, dyn: true }; try { Object.assign(RET, JSON.parse(localStorage.getItem('ftRet') || '{}')); } catch (e) {}
+let retR = 0, retKick = 0, retLastShot = 0, retDemo = 0;
+function drawRet(cv, spreadPx, o) {
+  const R0 = o || RET, x = cv.getContext('2d'); if (!x) return; const k = cv.width / 192, C0 = 96; x.setTransform(k, 0, 0, k, 0, 0); x.clearRect(0, 0, 192, 192); x.globalAlpha = R0.alpha / 100;
+  const sz = R0.size / 100, th = R0.thick, g = R0.dyn ? Math.max(R0.gap, spreadPx) : R0.gap, st = fn => { if (R0.outl) { x.strokeStyle = R0.ocol; x.lineWidth = th + 2.6; x.lineCap = 'square'; fn(); } x.strokeStyle = R0.color; x.lineWidth = th; x.lineCap = 'butt'; fn(); };
+  const dot = r => { if (R0.outl) { x.fillStyle = R0.ocol; x.beginPath(); x.arc(C0, C0, r + 1.5, 0, 6.3); x.fill(); } x.fillStyle = R0.color; x.beginPath(); x.arc(C0, C0, r, 0, 6.3); x.fill(); };
+  if (R0.shape === 'cross') { const L = 12 * sz; st(() => { x.beginPath(); x.moveTo(C0 - g - L, C0); x.lineTo(C0 - g, C0); x.moveTo(C0 + g, C0); x.lineTo(C0 + g + L, C0); x.moveTo(C0, C0 - g - L); x.lineTo(C0, C0 - g); x.moveTo(C0, C0 + g); x.lineTo(C0, C0 + g + L); x.stroke(); }); }
+  else if (R0.shape === 'ring') { const r = Math.max(8 * sz, g + 3 * sz); st(() => { x.beginPath(); x.arc(C0, C0, r, 0, 6.3); x.stroke(); }); }
+  else if (R0.shape === 'dot') { dot(Math.max(1.5, 2.6 * sz * th / 3)); const r = g + 5 * sz, d = Math.max(1.2, 1.7 * sz * th / 3); [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([a, b]) => { if (R0.outl) { x.fillStyle = R0.ocol; x.beginPath(); x.arc(C0 + a * r, C0 + b * r, d + 1.4, 0, 6.3); x.fill(); } x.fillStyle = R0.color; x.beginPath(); x.arc(C0 + a * r, C0 + b * r, d, 0, 6.3); x.fill(); }); }
+  else { const e = g + 5 * sz, L = 9 * sz; st(() => { x.beginPath(); [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([a, b]) => { x.moveTo(C0 + a * e, C0 + b * (e - L)); x.lineTo(C0 + a * e, C0 + b * e); x.lineTo(C0 + a * (e - L), C0 + b * e); }); x.stroke(); }); }
+  if (R0.dot && R0.shape !== 'dot') dot(1.5 + th * .35);
+  x.globalAlpha = 1;
+}
+function retSpreadPx() {                              // radius, in css pixels, of the cone the gun in your hands really fires into
+  const w = WP && WP[cur]; if (!w || w.melee) return 0; const f = Math.tan(C.fov * Math.PI / 360); return Math.min(86, Math.tan(w.spread || 0) / f * innerHeight / 2);
+}
+function retStep(dt, now) {
+  const cv = $('retc'); if (!cv || $('cross').style.display === 'none') return; const w = WP && WP[cur];
+  if (lastShot !== retLastShot) { retLastShot = lastShot; retKick = Math.min(1, retKick + (w && w.auto ? .12 : .5)); } retKick *= Math.exp(-5 * dt);
+  const mv = (mySpeed > 1 ? 3 : 0) + (!grounded ? 3 : 0), target = retSpreadPx() + (w && !w.melee ? mv + retKick * 9 : 0); retR += (target - retR) * Math.min(1, dt * 16);
+  const key = retR.toFixed(1); if (cv._k !== key) { cv._k = key; drawRet(cv, retR); }
+}
+function retSave() { try { localStorage.setItem('ftRet', JSON.stringify(RET)); } catch (e) {} cvForce(); }
+function cvForce() { const c = $('retc'); if (c) c._k = ''; retPrev(); }
+function retPrev() { const c = $('retpc'); if (c && $('st_ret').style.display !== 'none') drawRet(c, 10 + 8 * Math.sin(performance.now() / 500)); [...$('retshapes').children].forEach(b => { const cc = b.firstChild && b.firstChild.tagName === 'CANVAS' ? b.firstChild : b.appendChild(Object.assign(document.createElement('canvas'), { width: 112, height: 112 })); drawRet(cc, 3, Object.assign({}, RET, { shape: b.dataset.s, dyn: false, gap: 4, size: 90 })); b.classList.toggle('on', b.dataset.s === RET.shape); }); }
+[...$('retshapes').children].forEach(b => b.onclick = () => { RET.shape = b.dataset.s; retSave(); });
+[['size', 'r_size'], ['thick', 'r_thick'], ['alpha', 'r_alpha'], ['gap', 'r_gap']].forEach(([k, id]) => { const el = $(id); el.value = RET[k]; el.oninput = () => { RET[k] = +el.value; retSave(); }; });
+[['dot', 'r_dot'], ['outl', 'r_outl'], ['dyn', 'r_dyn']].forEach(([k, id]) => { const el = $(id); el.checked = !!RET[k]; el.onchange = () => { RET[k] = el.checked; retSave(); }; });
+[['color', 'r_color'], ['ocol', 'r_ocol']].forEach(([k, id]) => { const el = $(id); el.value = RET[k]; el.oninput = () => { RET[k] = el.value; retSave(); }; });
+setInterval(() => { if ($('setp').style.display === 'grid' && $('st_ret').style.display !== 'none') retPrev(); }, 120);
 applyGfx();
 ['master', 'music', 'sfx', 'sens'].forEach(k => { const el = $('v_' + k); el.value = Math.round(VOL[k] * 100); el.oninput = () => { VOL[k] = el.value / 100; applyVol(); try { localStorage.setItem('ftVol', JSON.stringify(VOL)); } catch (e) {} }; });
-$('setb').onclick = e => { e.stopPropagation(); try { initAudio(); } catch (er) {} openPnl('setp'); }; $('setx').onclick = closePnl; $('ctlb').onclick = () => { $('setp').style.display = 'none'; $('ctlp').style.display = 'grid'; }; $('ctlx').onclick = () => { $('ctlp').style.display = 'none'; $('setp').style.display = 'grid'; };
+$('setb').onclick = e => { e.stopPropagation(); try { initAudio(); } catch (er) {} openPnl('setp'); }; $('setx').onclick = closePnl;
 $('admb').onclick = e => { e.stopPropagation(); openPnl('admp'); buildPow(); renderTabs(); clearInterval(admTimer); let tk = 0; admTimer = setInterval(() => { tk++; if (admTab === 'players') $('admbody').innerHTML = playersHTML(); else if (admTab === 'accts' && tk % 4 === 0) admSend({ cmd: 'list' }); }, 1000); }; $('admx').onclick = closePnl;
 ['setp', 'admp'].forEach(id => ['keydown', 'keyup', 'mousedown', 'pointerdown', 'click'].forEach(ev => $(id).addEventListener(ev, e => e.stopPropagation())));   // typing or clicking in a panel never reaches the game
 const admSend = o => { try { ws.send(JSON.stringify(Object.assign({ t: 'admin' }, o))); } catch (e) {} };
@@ -2914,7 +3143,10 @@ $('mend').addEventListener('click', e => { const b = e.target.closest && e.targe
 
 // ---------- touch controls: left stick walks, drag anywhere else to look, buttons on the right ----------
 const TOUCH = (() => { try { return /[?&]touch=1/.test(location.search || '') || (typeof matchMedia === 'function' && matchMedia('(pointer:coarse)').matches); } catch (e) { return false; } })();
-const joy = { x: 0, y: 0 }; const isLive = () => TOUCH ? (!inMenu && !dead && !matchInter) : document.pointerLockElement === R.domElement;
+const joy = { x: 0, y: 0 }; const PAD = { on: false, id: -1, held: [], lx: 0, ly: 0, nextNav: 0, navDir: '', focus: null, zoomHeld: false, boardHeld: false, jumpHeld: false };
+const panelOpen = () => ['setp', 'admp', 'questp'].some(id => $(id) && $(id).style.display && $(id).style.display !== 'none') || ($('mend') && $('mend').style.display === 'grid');
+const padLive = () => PAD.on && !inMenu && !dead && !matchInter && !panelOpen();
+const isLive = () => TOUCH ? (!inMenu && !dead && !matchInter) : (document.pointerLockElement === R.domElement || padLive());
 if (TOUCH) {
   document.body.classList.add('touch');
   document.addEventListener('gesturestart', e => e.preventDefault());
@@ -2943,6 +3175,73 @@ if (TOUCH) {
 }
 addEventListener('pointermove', e => { if (lockerOn || inMenu) { MX = e.clientX / innerWidth; MY = e.clientY / innerHeight; } });   // the menu / locker diver follows a finger too
 
+// ---------- controller (Xbox layout): sticks, triggers, bumpers and d-pad; also drives the menus ----------
+const PADCSS = 'body.padnav .padf{outline:4px solid #ffd23f!important;outline-offset:3px;box-shadow:0 0 18px #ffd23f!important;position:relative;z-index:3;transform:scale(1.04)}';
+{ const st = document.createElement('style'); st.textContent = PADCSS; document.head.appendChild(st); }
+function padPick() { const gs = navigator.getGamepads ? navigator.getGamepads() : []; for (const g of gs) if (g && g.connected) return g; return null; }
+function padDz(x, dz) { const a = Math.abs(x); return a < dz ? 0 : Math.sign(x) * (a - dz) / (1 - dz); }
+function padScope() {                                  // the part of the screen a controller moves around in right now
+  const open = ['questp', 'setp', 'admp'].map($).find(e => e && e.style.display && e.style.display !== 'none'); if (open) return open;
+  if ($('mend') && $('mend').style.display === 'grid') return $('mend'); if (lockerOn) return $('locker'); return $('menu');
+}
+function padCands() {
+  const sc = padScope(), out = []; sc.querySelectorAll('button,.btn,.gun,input:not([type=hidden]),select,.cos,.vtile,.vt,[data-tab],[data-s],a').forEach(e => { const r = e.getBoundingClientRect(); if (r.width < 8 || r.height < 8 || e.disabled) return; const cs = getComputedStyle(e); if (cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity < .1) return; if (r.bottom < 0 || r.top > innerHeight || r.right < 0 || r.left > innerWidth) return; out.push(e); });
+  return out;
+}
+function padFocusSet(e) { if (PAD.focus && PAD.focus !== e) PAD.focus.classList.remove('padf'); PAD.focus = e; if (e) { e.classList.add('padf'); try { e.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (x) {} } }
+function padNav(dir) {
+  const c = padCands(); if (!c.length) return; let cur = PAD.focus && c.includes(PAD.focus) ? PAD.focus : null;
+  if (!cur) { const pr = c.find(e => e.id === 'play') || c[0]; padFocusSet(pr); return; }
+  const r0 = cur.getBoundingClientRect(), cx = r0.left + r0.width / 2, cy = r0.top + r0.height / 2; let best = null, bs = 1e9;
+  for (const e of c) { if (e === cur) continue; const r = e.getBoundingClientRect(), dx = r.left + r.width / 2 - cx, dy = r.top + r.height / 2 - cy; let a, b;   // a = distance along the pushed direction, b = how far off the line
+    if (dir === 'l') { a = -dx; b = Math.abs(dy); } else if (dir === 'r') { a = dx; b = Math.abs(dy); } else if (dir === 'u') { a = -dy; b = Math.abs(dx); } else { a = dy; b = Math.abs(dx); }
+    if (a < 4 || b > a * 2.4 + 30) continue; const sc = a + b * 2.2; if (sc < bs) { bs = sc; best = e; } }
+  if (best) padFocusSet(best);
+}
+function padAct() {                                    // A on the highlighted thing
+  const e = PAD.focus; if (!e || !document.body.contains(e)) return; if (e.type === 'range') return; if (e.tagName === 'INPUT' && (e.type === 'text' || e.type === 'password')) { e.focus(); return; }
+  e.click(); if (e.id === 'lockbtn' || e.id === 'lkback' || e.id === 'qbtn' || e.id === 'qmore' || e.id === 'setmenu' || e.id === 'setb') setTimeout(() => padFocusSet(null), 0);
+}
+function padBack() {
+  const open = ['questp', 'setp', 'admp'].map($).find(e => e && e.style.display && e.style.display !== 'none'); if (open) { closePnl(); padFocusSet(null); return; } if (lockerOn) { closeLocker(); padFocusSet(null); }
+}
+function padAdjust(dir) { const e = PAD.focus; if (!e || e.type !== 'range') return false; const st = +(e.step || 1) || 1, rng = (+e.max - +e.min) || 100, k = Math.max(st, rng / 40); e.value = clamp(+e.value + (dir === 'r' ? k : -k), +e.min, +e.max); e.dispatchEvent(new Event('input', { bubbles: true })); return true; }
+function padStep(dt, now) {
+  const g = padPick(); if (!g) { if (PAD.id >= 0) { PAD.id = -1; PAD.on = false; document.body.classList.remove('padnav'); joy.x = joy.y = 0; } return; }
+  const B = i => !!(g.buttons[i] && (g.buttons[i].pressed || g.buttons[i].value > .5)), V = i => g.buttons[i] ? g.buttons[i].value : 0, ax = i => g.axes[i] || 0;
+  const lx = padDz(ax(0), .2), ly = padDz(ax(1), .2), rx = padDz(ax(2), .14), ry = padDz(ax(3), .14), cur = g.buttons.map((b, i) => B(i)), prev = PAD.held; PAD.held = cur; PAD.id = g.index;
+  const dn = i => cur[i] && !prev[i], up = i => !cur[i] && prev[i];
+  if (!PAD.on && (cur.some(Boolean) || Math.hypot(lx, ly, rx, ry) > .5)) { PAD.on = true; }
+  if (!PAD.on) return;
+  document.body.classList.toggle('padnav', inMenu || panelOpen() || lockerOn);
+  // ---- menus ----
+  if (inMenu || panelOpen() || lockerOn) {
+    joy.x = joy.y = 0; let dir = cur[12] ? 'u' : cur[13] ? 'd' : cur[14] ? 'l' : cur[15] ? 'r' : Math.abs(lx) > .55 || Math.abs(ly) > .55 ? (Math.abs(lx) > Math.abs(ly) ? (lx > 0 ? 'r' : 'l') : (ly > 0 ? 'd' : 'u')) : '';
+    if (dir !== PAD.navDir) { PAD.navDir = dir; PAD.nextNav = 0; } if (dir && now >= PAD.nextNav) { PAD.nextNav = now + (PAD.nextNav ? 130 : 380); if (!padAdjust(dir) || dir === 'u' || dir === 'd') padNav(dir); }
+    if (dn(0)) padAct(); if (dn(1)) padBack();
+    if (dn(9) && inMenu && !lockerOn && !panelOpen()) { const b = $('play'); if (!b.disabled) b.click(); }
+    if (!PAD.focus && !panelOpen() && (dn(12) || dn(13) || dn(14) || dn(15) || dn(0))) padNav('d');
+    return;
+  }
+  if (PAD.focus) padFocusSet(null);
+  // ---- in the water ----
+  if ($('msg').textContent === 'Click to dive back in') showMsg('');
+  if (dead) { joy.x = joy.y = 0; return; }
+  joy.x = lx; joy.y = ly;                               // left stick walks (pushing up gives a negative y, which physics reads as forward)
+  const k = 3.1 * (C.fov / GFX.fov) * VOL.sens * (GFX.padsens / 100), sx = Math.sign(rx) * Math.pow(Math.abs(rx), 1.7), sy = Math.sign(ry) * Math.pow(Math.abs(ry), 1.7);
+  if (isLive()) { yaw -= sx * k * dt; pitch = clamp(pitch - sy * k * dt * (GFX.padinv ? -1 : 1), -1.5, 1.5); }
+  if (dn(0)) { keys.Space = true; PAD.jumpHeld = true; if (HP.att) { harpRelease(); vy = Math.max(vy, vy + 3); } else if (!grounded) doBoost(); } if (up(0)) { keys.Space = false; PAD.jumpHeld = false; }   // A jumps, A again in the air dashes
+  if (dn(4)) harpKey();                                  // left bumper: hook
+  if (dn(2) && !dead) ws.send('{"t":"reload"}');          // X
+  if (dn(11)) ws.send('{"t":"suicide"}');                 // press in the right stick: pop yourself
+  const rt = V(7) > .35, rtp = PAD.rt; PAD.rt = rt; if (rt && !rtp) fireDown(); if (!rt && rtp) fireUp();   // right trigger fires
+  const lt = V(6) > .35; if (lt !== PAD.zoomHeld) { PAD.zoomHeld = lt; zoom = lt && !!(WP[cur] && WP[cur].scope); }
+  const bd = cur[16] || cur[8] || cur[17]; if (bd !== PAD.boardHeld) { PAD.boardHeld = bd; $('board').style.display = bd ? 'block' : 'none'; }   // the middle (home / view) button holds the scoreboard
+}
+addEventListener('gamepadconnected', () => { const g = padPick(); if (g) { PAD.on = true; } });
+addEventListener('keydown', e => { if (PAD.on && !/^(Shift|Control|Alt|Meta)/.test(e.code)) { PAD.on = false; document.body.classList.remove('padnav'); padFocusSet(null); joy.x = joy.y = 0; } }, true);
+addEventListener('mousedown', () => { if (PAD.on) { PAD.on = false; document.body.classList.remove('padnav'); padFocusSet(null); } }, true);
+
 // ---------- connection ----------
 function connect() {
   ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host);
@@ -2957,8 +3256,11 @@ function connect() {
       if (matchInter) { lastEnd = null; $('mend').style.display = 'grid'; renderMend(); }
       animate();
     }
-    else if (m.t === 'auth') { if (m.ok) { guest = false; acct = null; isAdmin = !!m.admin; $('admb').style.display = isAdmin ? 'grid' : 'none'; setProg(m); } else if ($('aerr')) $('aerr').textContent = m.error || 'Could not log in.'; }
+    else if (m.t === 'auth') { if (m.ok) { guest = false; acct = null; isAdmin = !!m.admin; $('admb').style.display = isAdmin ? 'grid' : 'none'; setProg(m); setTimeout(() => wsSend({ t: 'qreq' }), 300); } else if ($('aerr')) $('aerr').textContent = m.error || 'Could not log in.'; }
     else if (m.t === 'prog') setProg(m);
+    else if (m.t === 'quests') setQuests(m);
+    else if (m.t === 'qdone') questToast(m);
+    else if (m.t === 'xp') xpPop(m);
     else if (m.t === 'ach') achToast(m);
     else if (m.t === 'spawn') {
       HP.att = null; HP.drag = null; HP.flingT = 0; HR.forEach(fx => killRope(fx)); HR.clear(); if (WP[cur].pad) cur = menuW; clearTimeout(deathT); deathAuto = false; tiltEnd(); endSpec(); document.body.classList.remove('inmenu'); sfxSpawn(); boostReady = 0; dvx = dvz = 0; boostCD = WP[cur].boost * 1000; pos.set(m.x, m.y, m.z); vy = 0; dead = false; inMenu = false; yaw = Math.atan2(-m.x, -m.z); pitch = 0; showMsg(''); closeLocker(); $('tscope').style.display = TOUCH && WP[cur].scope ? 'grid' : 'none'; zoom = false;
@@ -3154,12 +3456,12 @@ function animate() {
     if (selfG) selfG.visible = false; const bk = GFX.bob / 100, bs = Math.sin(bobT) * bobA * bk, by = Math.sin(bobT * 2) * bobA * bk; C.position.set(pos.x + rnd(-1, 1) * shake * .3 * GFX.shake / 100 + Math.cos(yaw) * bs * .05, pos.y + (iAmJug() ? 2.05 : 1.7) + rnd(-1, 1) * shake * .3 * GFX.shake / 100 + by * .065, pos.z - Math.sin(yaw) * bs * .05); C.rotation.set(pitch + recoil * .1 * GFX.shake / 100 + by * .009, yaw, bs * .011, 'YXZ'); }   // a very slight step bob and roll
   if (inMenu && kid) { shake = Math.max(shake, 0); }
   C.fov += ((zoom ? WP[cur].scope || GFX.fov : GFX.fov) - C.fov) * .25; C.updateProjectionMatrix();
-  if (WP && WP[cur] && WP[cur].pellets > 1) { const px = Math.max(26, Math.round(Math.tan(WP[cur].spread) / Math.tan(C.fov * Math.PI / 360) * innerHeight)); if (px !== crossPx) { crossPx = px; $('cross').style.width = $('cross').style.height = px + 'px'; $('cross').style.margin = -px / 2 + 'px'; } } else if (crossPx) { crossPx = 0; $('cross').style.width = $('cross').style.height = '26px'; $('cross').style.margin = '-13px'; }   // the shotgun crosshair is exactly as wide as its pellet spread
+  retStep(dt, now); padStep(dt, now);
   const sc = zoom && C.fov < 45; if (sc !== scoped) { scoped = sc; $('scope').style.display = sc ? 'block' : 'none'; $('cross').style.display = sc ? 'none' : 'block'; }
   if (gunVM) {
     vm.visible = !sc && !dead && !inMenu && !emoteSelf() && !iAmJug(); recoil *= Math.exp(-17 * dt);
     { const dyw = wrapA(yaw - lyaw), dpt = pitch - lpit; lyaw = yaw; lpit = pitch; swX = clamp(swX + dyw * .4, -.05, .05) * Math.exp(-9 * dt); swY = clamp(swY - dpt * .4, -.04, .04) * Math.exp(-9 * dt);   // the gun lags a little behind your look
-      bobA += ((mySpeed > 1 && !dead ? 1 : 0) - bobA) * Math.min(1, dt * 7); bobT += dt * Math.max(mySpeed, 2) * .85;
+      bobA += ((mySpeed > 1 && !dead && grounded ? 1 : 0) - bobA) * Math.min(1, dt * 7); bobT += dt * Math.max(mySpeed, 2) * .85;
       const bk = GFX.bob / 100; vm.position.set(.26 + swX + Math.cos(bobT) * .024 * bobA * bk, -.26 + swY + Math.abs(Math.sin(bobT)) * .034 * bobA * bk - Math.sin(bobT * 2) * .006 * bobA * bk, -.55 + recoil); vm.rotation.set(recoil * .8 + swY * .8 + Math.sin(bobT * 2) * .025 * bobA * bk, swX * 1.1 + Math.cos(bobT) * .025 * bobA * bk, -swX * .45 + Math.sin(bobT) * .038 * bobA * bk); }   // the gun sways in a gentle figure-eight as you move
     const W0 = WP[cur], chFx = W0.charge ? (chargeT ? Math.min(1, (now - chargeT) / W0.charge) : 0) : W0.spin ? (holdT ? Math.min(1, (now - holdT) / W0.spin) : 0) : 0, st = gstate(cur, me.ammo, me.rel, relStart, shotAt, now, chFx); st.lx = swX; st.ly = swY; gunVM.userData.upd(st); vm.userData.hand();
     if (me.rel && !inMenu && !dead) { const sn = Math.pow(Math.sin(st.relP * Math.PI), .6), tl = cur === 'squid' ? .25 : gunVM.userData.magFx ? .45 : 1, sb = st.relP > .9 ? Math.sin((st.relP - .9) / .1 * Math.PI) : 0; vm.rotation.z = sn * .5 * tl; vm.position.y = -.26 - sn * .1 * tl; vm.position.z += sb * .035 * tl; vm.rotation.x -= sb * .05 * tl; }   // crisp tilt in and out, and a little push when the mag seats
@@ -3206,13 +3508,13 @@ function animate() {
     R.autoClear = false; R.clear(); R.render(S, C); const U = PV.userData;
     if (lockerOn) {
       try { lockIcons(dt, t); } catch (e) { if (!CI.err) { CI.err = 1; console.error(e); } }
-      const w = Math.round(innerWidth * .4), h = innerHeight, cx = .2, cy = .38; PC.clearViewOffset(); PC.fov = 32; PC.position.set(0, 2.05, 6.3); PC.lookAt(0, 1.5, 0);
+      const w = Math.round(innerWidth * (innerWidth <= 820 ? 0 : .38)), h = innerHeight, cx = .19, cy = .46; PC.clearViewOffset(); PC.fov = 32; PC.position.set(0, 1.45, 6.6); PC.lookAt(0, 1.0, 0);
       PV.rotation.y += angW(Math.PI + clamp((MX - cx) * 3.4, -1.25, 1.25) - PV.rotation.y) * Math.min(1, dt * 9); animDiver(PV, dt, 0, false, clamp((cy - MY) * 1.8, -.8, .8), t);
       if (U.gunG && WP[cur]) { U.gunG.userData.upd(gstate(cur, WP[cur].mag, false, 0, 0, now, 0)); U.hand(); }
       PC.aspect = w / h; PC.updateProjectionMatrix(); R.setScissorTest(true); R.setViewport(0, 0, w, h); R.setScissor(0, 0, w, h); R.clearDepth(); R.render(PS, PC); R.setScissorTest(false); R.setViewport(0, 0, innerWidth, innerHeight);
     } else {
-      const W = innerWidth, H = innerHeight, sc = H * .5 / 2.8, vis = H / sc, dz = vis / (2 * Math.tan(16 * Math.PI / 180));   // the diver fills about half the screen height
-      PC.fov = 32; PC.aspect = W / H; PC.position.set(0, 1.3, dz); PC.lookAt(0, 1.2, 0); PC.setViewOffset(W, H, 0, H * .04, W, H); PC.updateProjectionMatrix(); PC.updateMatrixWorld(true);
+      const W = innerWidth, H = innerHeight, sr = $('stage').getBoundingClientRect(), shh = sr.height > 60 ? sr.height : H * .5, sc = clamp(shh * .97, 110, H * .6) / 2.8, vis = H / sc, dz = vis / (2 * Math.tan(16 * Math.PI / 180));   // the diver fills about half the screen height
+      PC.fov = 32; PC.aspect = W / H; PC.position.set(0, 1.3, dz); PC.lookAt(0, 1.2, 0); PC.setViewOffset(W, H, 0, Math.round(H / 2 - (sr.height > 60 ? sr.top + sr.height / 2 : H * .46)), W, H); PC.updateProjectionMatrix(); PC.updateMatrixWorld(true);
       PV.rotation.y += angW(Math.PI + clamp((MX - .5) * .5, -.3, .3) - PV.rotation.y) * Math.min(1, dt * 4); U.nowMs = now; U.shotAt = MENU.shotAt; animDiver(PV, dt, 0, false, 0, t);
       if (U.gunG && WP[cur]) {
         const hold = now < MENU.overT && MENU.over, tgt = hold ? menuRay(MENU.over[0], MENU.over[1], 5) : menuRay(MX * W, MY * H, 5), ang = menuAimAt(tgt);
@@ -3230,7 +3532,7 @@ function animate() {
 $('specbtn').onclick = () => { if (ws && ws.readyState === 1 && WP[cur]) startSpec(); };
 $('play').onclick = () => {
   if (!ws || ws.readyState !== 1 || !WP[cur] || !(acct || guest)) return; const n = $('name').value.trim() || 'Diver' + Math.floor(rnd(100, 999));
-  if (!TOUCH) R.domElement.requestPointerLock(); else try { const de = document.documentElement, p = de.requestFullscreen && de.requestFullscreen(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+  if (!TOUCH) { try { const pl = R.domElement.requestPointerLock(); if (pl && pl.catch) pl.catch(() => {}); } catch (e) {} } else try { const de = document.documentElement, p = de.requestFullscreen && de.requestFullscreen(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
   try { if (navigator.keyboard && navigator.keyboard.lock) navigator.keyboard.lock(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ControlLeft', 'ControlRight', 'Tab']).catch(() => {}); } catch (e) {}   // helps keep Ctrl combos away from the browser (only works in fullscreen)
   ws.send(JSON.stringify({ t: 'join', name: n, w: cur }));
 };

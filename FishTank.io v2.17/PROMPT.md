@@ -82,6 +82,16 @@ A kid's aquarium sits on a dresser in a childhood bedroom. The players are **ant
 9. **Anti-cheat:** server-side movement validation, speed and teleport checks, rate limiting, reconnect handling.
 10. **Polish:** mobile controls, settings menu (sensitivity, FOV, volume), proper skinned diver model, better hit-effects, caustic water light.
 
+## FIX 25 (v0.25.0)
+- **Settings:** now a tab bar across the top (Sound, Graphics, Interface, Reticle, Controls) so controls never sit at the bottom of another page. Graphics gained brightness, contrast, saturation, water haze, particles, shake, bob, menu animation and high contrast. Interface has **GUI scale** (capped by window size so overlays never collide or hide the game).
+- **Reticle page:** 4 shapes (cross, ring, dot, brackets), colour, outline colour, size, thickness, opacity, centre dot. The reticle opens to the gun's *real* spread (tan(spread)/tan(fov/2) in pixels) plus a little move/fire bloom.
+- **Quests:** 3 daily quests (same for everyone each UTC day; finish all three in about 30 minutes), a MORE page with 18 quests from easy to a long grind. Some quests unlock cosmetics and achievements. Server: `QDAILY`, `QMORE`, `qCheck`. Client: `#qcard`, `#questp`.
+- **Cosmetics cut to 18** (level or quest unlocked) plus 4 preset diver colours (brass, algae green, blue, red). Locker: diver on the left, section bar (Colors, Hats, Face, Hair, Paint, Suits, Back, Trails, Emotes, Awards) on the right. Cosmetic jiggle reduced to about a third.
+- **Kills give +30 XP** (+10 for a headshot) with a yellow popup next to the damage number.
+- **Gameplay:** guns 26% smaller in first person, no walk bob while swimming, noodle held like a lightsaber and swings alternate (right-to-left swoop, then the backhand back up), Squid Launcher splash 4.5 to 6.5 with a much bigger blast, the harpoon through you shows on screen, the tank lid bars can be hooked, and the hook has a short sag past max length so aiming a bit above a ledge still catches it.
+- **Controller (Xbox layout):** left stick move, right stick aim, A jump (A in air = dash), LB hook, RT fire, LT scope, X reload, R3 pop yourself, Home/View hold scoreboard, d-pad / left stick to move through menus, A select, B back, Start dive.
+- **Menu:** cleaner on phones, bouncy entrances, quests card under the leaderboard, bigger/lower gun overview that respects GUI scale, admin button no longer covers the leaderboard.
+
 ## Deploying
 Run `npm install && npm start`. For the public web, deploy the folder to a Node host that supports WebSockets (Render, Railway, Fly.io). It must run `node server.js`, listen on `process.env.PORT`, and serve over HTTPS so the client automatically uses `wss://`.
 
