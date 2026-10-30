@@ -1,0 +1,18 @@
+{
+  "name": "fishtank-io",
+  "version": "0.29.0",
+  "description": "FishTank.io v0.11 (FIX 11): the cat knocks the bowl off the counter when every fish is dead, tighter hitboxes, nerfed guns, Pool Noodle, anglerfish gun model, comic-rounded menus, Controls panel, B emote key with Fortnite-style dances.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.11"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.1"
+  }
+}
